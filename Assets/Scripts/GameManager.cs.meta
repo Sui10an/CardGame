@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: a9858efd2edbc704aab5c69d017c459f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - uIManager: {instanceID: 0}
+  - cardPrefab: {instanceID: 0}
+  - manacardPrefab: {instanceID: 0}
+  - playerHand: {instanceID: 0}
+  - playerField: {instanceID: 0}
+  - enemyField: {instanceID: 0}
+  - playerManaField: {instanceID: 0}
+  - playerLeaderHPText: {instanceID: 0}
+  - enemyLeaderHPText: {instanceID: 0}
+  - playerManaPointText: {instanceID: 0}
+  - playerDefaultManaPointText: {instanceID: 0}
+  - playerLeaderTransform: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
