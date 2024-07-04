@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CardController : MonoBehaviour
 {
-    public CardView view; // ƒJ[ƒh‚ÌŒ©‚½–Ú‚Ìˆ—
-    public CardModel model; // ƒJ[ƒh‚Ìƒf[ƒ^‚ğˆ—
-    public CardMovement movement;  // ˆÚ“®(movement)‚ÉŠÖ‚·‚é‚±‚Æ‚ğ‘€ì
+    public CardView view; // ã‚«ãƒ¼ãƒ‰ã®è¦‹ãŸç›®ã®å‡¦ç†
+    public CardModel model; // ã‚«ãƒ¼ãƒ‰ã®ãƒ‡ãƒ¼ã‚¿ã‚’å‡¦ç†
+    public CardMovement movement;  // ï¿½Ú“ï¿½(movement)ï¿½ÉŠÖ‚ï¿½ï¿½é‚±ï¿½Æ‚ğ‘€ï¿½
 
     private void Awake()
     {
@@ -14,31 +14,38 @@ public class CardController : MonoBehaviour
         movement = GetComponent<CardMovement>();
     }
 
-    public void Init(int cardID, bool playerCard) // ƒJ[ƒh‚ğ¶¬‚µ‚½‚ÉŒÄ‚Î‚ê‚éŠÖ”
+    public void Init(int cardID, bool playerCard) // ã‚«ãƒ¼ãƒ‰ã‚’ç”Ÿæˆã—ãŸæ™‚ã«å‘¼ã°ã‚Œã‚‹é–¢æ•°
     {
-        model = new CardModel(cardID, playerCard); // ƒJ[ƒhƒf[ƒ^‚ğ¶¬
-        view.Show(model); // •\¦
+        model = new CardModel(cardID, playerCard); // ã‚«ãƒ¼ãƒ‰ãƒ‡ãƒ¼ã‚¿ã‚’ç”Ÿæˆ
+        view.Show(model); // è¡¨ç¤º
     }
-    public void ManaSporn(int cardID, bool playerCard) // ƒJ[ƒh‚ğ¶¬‚µ‚½‚ÉŒÄ‚Î‚ê‚éŠÖ”
+    public void ManaSporn(int cardID, bool playerCard) // ã‚«ãƒ¼ãƒ‰ã‚’ç”Ÿæˆã—ãŸæ™‚ã«å‘¼ã°ã‚Œã‚‹é–¢æ•°
     {
-        model = new CardModel(cardID, playerCard); // ƒJ[ƒhƒf[ƒ^‚ğ¶¬
-        view.Show(model); // •\¦
-        model.FieldCard = true; // ƒtƒB[ƒ‹ƒh‚ÌƒJ[ƒh‚Ìƒtƒ‰ƒO‚ğ—§‚Ä‚é
+        model = new CardModel(cardID, playerCard); // ã‚«ãƒ¼ãƒ‰ãƒ‡ãƒ¼ã‚¿ã‚’ç”Ÿæˆ
+        view.Show(model); // è¡¨ç¤º
+        model.FieldCard = true; // ï¿½tï¿½Bï¿½[ï¿½ï¿½ï¿½hï¿½ÌƒJï¿½[ï¿½hï¿½Ìƒtï¿½ï¿½ï¿½Oï¿½ğ—§‚Ä‚ï¿½
         model.ManaCard = true;
     }
-    public void SpornCard(int cardID, bool playerCard) // ƒJ[ƒh‚ğ¶¬‚µ‚½‚ÉŒÄ‚Î‚ê‚éŠÖ”
+    public void SpornCard(int cardID, bool playerCard) // ã‚«ãƒ¼ãƒ‰ã‚’ç”Ÿæˆã—ãŸæ™‚ã«å‘¼ã°ã‚Œã‚‹é–¢æ•°
     {
-        model = new CardModel(cardID, playerCard); // ƒJ[ƒhƒf[ƒ^‚ğ¶¬
-        view.Show(model); // •\¦
-        model.FieldCard = true; // ƒtƒB[ƒ‹ƒh‚ÌƒJ[ƒh‚Ìƒtƒ‰ƒO‚ğ—§‚Ä‚é
+        model = new CardModel(cardID, playerCard); // ã‚«ãƒ¼ãƒ‰ãƒ‡ãƒ¼ã‚¿ã‚’ç”Ÿæˆ
+        view.Show(model); // è¡¨ç¤º
+        model.FieldCard = true; // ï¿½tï¿½Bï¿½[ï¿½ï¿½ï¿½hï¿½ÌƒJï¿½[ï¿½hï¿½Ìƒtï¿½ï¿½ï¿½Oï¿½ğ—§‚Ä‚ï¿½
     }
-    public void SRSporn(int cardID, bool playerCard) // ƒJ[ƒh‚ğ¶¬‚µ‚½‚ÉŒÄ‚Î‚ê‚éŠÖ”
+    public void SRSporn(int cardID, bool playerCard) // ã‚«ãƒ¼ãƒ‰ã‚’ç”Ÿæˆã—ãŸæ™‚ã«å‘¼ã°ã‚Œã‚‹é–¢æ•°
     {
-        model = new CardModel(cardID, playerCard); // ƒJ[ƒhƒf[ƒ^‚ğ¶¬
-        view.Show(model); // •\¦
-        model.FieldCard = true;// ƒtƒB[ƒ‹ƒh‚ÌƒJ[ƒh‚Ìƒtƒ‰ƒO‚ğ—§‚Ä‚é
+        model = new CardModel(cardID, playerCard); // ã‚«ãƒ¼ãƒ‰ãƒ‡ãƒ¼ã‚¿ã‚’ç”Ÿæˆ
+        view.Show(model); // è¡¨ç¤º
+        model.FieldCard = true;// ï¿½tï¿½Bï¿½[ï¿½ï¿½ï¿½hï¿½ÌƒJï¿½[ï¿½hï¿½Ìƒtï¿½ï¿½ï¿½Oï¿½ğ—§‚Ä‚ï¿½
         model.SRuse = true;
         model.mana += 10;
+    }
+    public void Sle(int cardID, bool playerCard) // ã‚«ãƒ¼ãƒ‰ã‚’ç”Ÿæˆã—ãŸæ™‚ã«å‘¼ã°ã‚Œã‚‹é–¢æ•°
+    {
+        model = new CardModel(cardID, playerCard); // ã‚«ãƒ¼ãƒ‰ãƒ‡ãƒ¼ã‚¿ã‚’ç”Ÿæˆ
+        view.Show(model); // è¡¨ç¤º
+        view.SetCanUsePanel(true);
+        view.SetAap(true);
     }
 
     public void DestroyCard(CardController card)
@@ -50,14 +57,32 @@ public class CardController : MonoBehaviour
     {
         GameManager.instance.ReduceManaPoint(model.cost);
         GameManager.instance.CardEffect(model.cardId);
-        model.FieldCard = true; // ƒtƒB[ƒ‹ƒh‚ÌƒJ[ƒh‚Ìƒtƒ‰ƒO‚ğ—§‚Ä‚é
+        model.FieldCard = true; // ï¿½tï¿½Bï¿½[ï¿½ï¿½ï¿½hï¿½ÌƒJï¿½[ï¿½hï¿½Ìƒtï¿½ï¿½ï¿½Oï¿½ğ—§‚Ä‚ï¿½
         model.canUse = false;
         if (model.cardId == 1)
         {
             model.SRuse = true;
         }
-        view.SetCanUsePanel(model.canUse); // o‚µ‚½‚ÉCanUsePanel‚ğÁ‚·
+        view.SetCanUsePanel(model.canUse); // ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½CanUsePanelï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         Destroy(this.gameObject);
     }
-    
+    public void BomberF()
+    {
+        GameManager.instance.PanelOn();
+        GameObject enemyField = transform.parent.gameObject;
+        CardController[] cardList = enemyField.GetComponentsInChildren<CardController>();
+        foreach(CardController Ecard in cardList)
+        {
+            Ecard.view.SetBomPanel(false);
+        }
+    }
+    public void SelectEffect(CardController card)
+    {
+        if(GameManager.instance.KP == true)
+        {
+            int CardID = card.model.cardId;
+            GameManager.instance.Cosshon(CardID);
+            GameManager.instance.KP = false;
+        }
+    }
 }

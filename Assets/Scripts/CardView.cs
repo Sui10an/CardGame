@@ -8,10 +8,10 @@ public class CardView : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI nameText, powerText, costText, attackText;
     [SerializeField] Image iconImage;
-    [SerializeField] GameObject canAttackPanel, canUsePanel, changeSrPanel;
+    [SerializeField] GameObject canAttackPanel, canUsePanel, changeSrPanel,selectPanel,Aap;
     [SerializeField] GameObject manaCost, attackCost;
 
-    public void Show(CardModel cardModel) // cardModel‚Ìƒf[ƒ^æ“¾‚Æ”½‰f
+    public void Show(CardModel cardModel) // cardModelã®ãƒ‡ãƒ¼ã‚¿å–å¾—ã¨åæ˜ 
     {
         nameText.text = cardModel.name;
         powerText.text = cardModel.power.ToString();
@@ -34,7 +34,7 @@ public class CardView : MonoBehaviour
         canAttackPanel.SetActive(flag);
     }
 
-    public void SetCanUsePanel(bool flag) // ƒtƒ‰ƒO‚É‡‚í‚¹‚ÄCanUsePanel‚ğ•t‚¯‚éorÁ‚·
+    public void SetCanUsePanel(bool flag) // ï¿½tï¿½ï¿½ï¿½Oï¿½Éï¿½ï¿½í‚¹ï¿½ï¿½CanUsePanelï¿½ï¿½tï¿½ï¿½ï¿½ï¿½orï¿½ï¿½ï¿½ï¿½
     {
         canUsePanel.SetActive(flag);
     }
@@ -42,5 +42,13 @@ public class CardView : MonoBehaviour
     public void ChangeSR(bool flag)
     {
         changeSrPanel.SetActive(flag);
+    }
+    public void SetBomPanel(bool flag) // ï¿½tï¿½ï¿½ï¿½Oï¿½Éï¿½ï¿½í‚¹ï¿½ï¿½CanUsePanelï¿½ï¿½tï¿½ï¿½ï¿½ï¿½orï¿½ï¿½ï¿½ï¿½
+    {
+        selectPanel.SetActive(flag);
+    }
+    public void SetAap(bool flag)
+    {
+        Aap.SetActive(flag);
     }
 }

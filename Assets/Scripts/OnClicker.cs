@@ -6,13 +6,16 @@ using UnityEngine.EventSystems;
 public class OnClicker : MonoBehaviour, IPointerClickHandler
 {
 
+[SerializeField] CardController card;
     public void OnPointerClick(PointerEventData eventData)
     {
-        // クリックされた時に行いたい処理
-        /*if (model.SRcan == true)
+        // 辷�蠑ｾ逕ｨ
+        if(GameManager.instance.Bom == true)
         {
-            card.SRSporn(100, true);
             Destroy(card.gameObject);
-        }*/
+            GameManager.instance.Bom = false;
+            card.view.SetCanUsePanel(true);
+            //GameManager.OffSP();
+        }
     }
 }

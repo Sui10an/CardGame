@@ -21,13 +21,13 @@ public class CardModel
     public bool SRuse = false;
     public bool SRcan = false;
 
-    public CardModel(int cardID, bool playerCard) // ƒf[ƒ^‚ğó‚¯æ‚èA‚»‚Ìˆ—
+    public CardModel(int cardID, bool playerCard) // ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½ó‚¯ï¿½ï¿½Aï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½
     {
         CardEntity cardEntity = Resources.Load<CardEntity>("CardEntityList/Card" + cardID);
         if (cardEntity == null)
         {
             Debug.LogError("CardEntity not found for cardID: " + cardID);
-            return; // ‚Ü‚½‚Í“KØ‚ÈƒGƒ‰[ˆ—‚ğs‚¤
+            return; // é€”ä¸­ã§å‡¦ç†ã‚’åˆ‡ã‚‹ã‚¾!
         }
 
         cardId = cardEntity.cardId;
