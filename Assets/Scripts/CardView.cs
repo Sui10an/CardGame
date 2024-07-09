@@ -7,9 +7,10 @@ using TMPro;
 public class CardView : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI nameText, powerText, costText, attackText;
+    [SerializeField] public TextMeshProUGUI manas;
     [SerializeField] Image iconImage;
     [SerializeField] GameObject canAttackPanel, canUsePanel, changeSrPanel,selectPanel,Aap;
-    [SerializeField] GameObject manaCost, attackCost;
+    [SerializeField] GameObject manaCost, attackCost,manaPanel;
 
     public void Show(CardModel cardModel) // cardModelのデータ取得と反映
     {
@@ -18,6 +19,7 @@ public class CardView : MonoBehaviour
         costText.text = cardModel.cost.ToString();
         iconImage.sprite = cardModel.icon;
         costText.text = cardModel.cost.ToString();
+        manas.text = cardModel.mana.ToString();
         attackText.text = cardModel.needmana.ToString();
         if (0 < cardModel.cardId && cardModel.cardId < 5)
         {
@@ -37,6 +39,10 @@ public class CardView : MonoBehaviour
     public void SetCanUsePanel(bool flag) // �t���O�ɍ��킹��CanUsePanel��t����or����
     {
         canUsePanel.SetActive(flag);
+    }
+    public void SetManaPanel(bool flag)
+    {
+        manaPanel.SetActive(flag);
     }
 
     public void ChangeSR(bool flag)

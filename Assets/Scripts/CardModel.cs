@@ -12,6 +12,8 @@ public class CardModel
     public Sprite icon;
     public int mana;
     public int needmana;
+    public int manaplus;
+    public int manapluspuls;
 
     public bool canUse = false;
     public bool PlayerCard = false;
@@ -37,6 +39,8 @@ public class CardModel
         icon = cardEntity.icon;
         mana = cardEntity.mana;
         needmana = cardEntity.needmana;
+        manaplus = cardEntity.manaplus ;
+        manapluspuls = cardEntity.manapluspuls;
         PlayerCard = playerCard;
     }
     

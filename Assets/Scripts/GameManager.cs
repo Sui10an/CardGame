@@ -36,6 +36,8 @@ public class GameManager : MonoBehaviour
     public bool Bom = true;
     public bool KP = true; // ケアパッケージを使うため
     public bool JS = true;// 銃のサーチ
+    public bool CPC = true;// 銃のサーチ
+    public bool CMC = true;
     List<int> deck = new List<int>() {2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13,14,14,15,15};  //
 
     public static GameManager instance;
@@ -65,16 +67,6 @@ public class GameManager : MonoBehaviour
         playerDefaultManaPoint = 1;
         ShowManaPoint();
 
-        //デッキのシャッフル
-        Shuffle();
-
-        // 初期手札を配る
-        SetStartHand();
-
-        // 初期盤面
-        CreateSporn(1, playerField);
-        CreateSporn(1, enemyField);
-
         // オプションいろいろ
         playerBlockHP = 0;
         enemyBlockHP = 0;
@@ -86,11 +78,23 @@ public class GameManager : MonoBehaviour
         EBaff = 0;
         KP = false;
         JS = false;
+        CPC = false;
+        CMC = false;
+
+        //デッキのシャッフル
+        Shuffle();
+
+        // 初期手札を配る
+        SetStartHand();
+
+        // 初期盤面
+        CreateSporn(1, playerField);
+        CreateSporn(1, enemyField);
 
         // ターンの開始
         StartCoroutine(TurnCalc());
     }
-    void Shuffle() // デッキをシャッフルする
+    public void Shuffle() // デッキをシャッフルする
     {
         // 整数 n の初期値はデッキの枚数
         int n = deck.Count;
@@ -188,7 +192,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void SetManaCard()
+    public void SetManaCard()
     {
         CardController[] playerManaCardList = playerManaField.GetComponentsInChildren<CardController>();
         int Point = playerManaPoint;
@@ -242,7 +246,6 @@ public class GameManager : MonoBehaviour
 
     public void ChangePhase() // ?��^?��[?��?��?��G?��?��?��h?��{?��^?��?��?��ɂ�?��鏈�?��
     {
-        isnotBattleFaiz = false;
         isFileder = false;
         PhaseCalc(); // ?��^?��[?��?��?��?��?��ɉ�
     }
@@ -261,6 +264,11 @@ public class GameManager : MonoBehaviour
 
         if(isnotBattleFaiz == true)
         {
+            CardController[] playerFieldList = playerField.GetComponentsInChildren<CardController>();
+            foreach(CardController card in playerFieldList){
+                card.model.manaplus = 0;
+            }
+
             /// 弾薬箱の処理
             if(playerManaPlus != 0)
             {
@@ -292,13 +300,15 @@ public class GameManager : MonoBehaviour
     public void BattleFaiz()//?��o?��g?��?��?��t?��F?��[?��Y?��?��ݒ�
     {
         ReSetCanUsePanelHand();
-        if (TrunCount == 1)
+        ReSetCanUsePanelMana();
+        if (TrunCount == 1 || isnotBattleFaiz == false)
         {
             uIManager.Stoper();
             ChangeTurn();
         }
         else
         {
+            isnotBattleFaiz = false;
             uIManager.Stoper();
             StartCoroutine(TurnCalc());
             CardController[] playerFieldCardList = playerField.GetComponentsInChildren<CardController>();
@@ -413,12 +423,13 @@ public class GameManager : MonoBehaviour
         }
         if (cardId == 14) //拡張
         {
-
+            useField.SetActive(false);
+            Cakuthou();
         }
         if (cardId == 15) //スコ
         {
-            //CardController attackCard = ;
-            //ChangePower(attackCard);
+            useField.SetActive(false);
+            ChangePower();
         }
     }
 
@@ -471,7 +482,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //void EnemyTurn() // ?��R?��?��?��?��?��g?��A?��E?��g?��?��?��?��
+    
     IEnumerator EnemyTurn() // StartCoroutine?��ŌĂ΂ꂽ?��̂ŁAIEnumerator?��ɕύX
     {
         PanelOff();
@@ -547,13 +558,15 @@ public class GameManager : MonoBehaviour
         {
             if(attackCard.model.ManaCard == true)
             {
-                if(defenceCard.model.needmana == 0)
+                if(defenceCard.model.needmana == 0 || defenceCard.model.manaplus> defenceCard.model.manapluspuls )
                 {
                     return;
                 }
                 defenceCard.model.mana += 1;
                 playerManaPoint -= 1;
+                defenceCard.model.manaplus += 1;
                 attackCard.DestroyCard(attackCard);
+                ChangeManaText(defenceCard);
                 ShowManaPoint();
             }
             else
@@ -580,6 +593,10 @@ public class GameManager : MonoBehaviour
             }
         }
         
+    }
+    void ChangeManaText(CardController card)
+    {
+        card.view.manas.text = card.model.mana.ToString();
     }
     void CheckHPID(CardController[] cardList)
     {
@@ -667,17 +684,33 @@ public class GameManager : MonoBehaviour
 
         //enemyLeaderHP -= attackCard.model.power; // ?��R?��?��?��?��?��g?��A?��E?��g?��?��?��?��
 
-        baff = 0;
         attackCard.model.mana -= attackCard.model.needmana;
         attackCard.model.canAttack = false;
         attackCard.view.SetCanAttackPanel(false);
         Debug.Log("?��G?��?��HP?��́A" + enemyLeaderHP);
+        ChangeManaText(attackCard);
         ShowLeaderHP();
     }
 
-    public void ChangePower(CardController attackCard)
+    public void ChangePower()
     {
-        attackCard.model.power = attackCard.model.power + 1;
+        CPC = true;
+        CardController[] ACC = playerField.GetComponentsInChildren<CardController>();
+        foreach (CardController card in ACC)
+        {
+            if(card.model.cardId == 2){
+                card.view.SetAap(true);
+            }
+        }
+    }
+    public void Cakuthou()
+    {
+        CMC = true;
+        CardController[] ACC = playerField.GetComponentsInChildren<CardController>();
+        foreach (CardController card in ACC)
+        {
+            card.view.SetAap(true);
+        }
     }
     public void ShowLeaderHP()
     {
@@ -742,7 +775,7 @@ public class GameManager : MonoBehaviour
                 {
                     if(item >= 5)
                     {
-                        deck.RemoveAt(item);
+                        //deck.RemoveAt(item);
                         CardController card = Instantiate(cardPrefab, selectField);
                         card.Sle(item,false);
                         COUNT += 1;
@@ -758,7 +791,7 @@ public class GameManager : MonoBehaviour
                 {
                     if(item <= 4)
                     {
-                        deck.RemoveAt(item);
+                        //deck.RemoveAt(item);
                         CardController card = Instantiate(cardPrefab, selectField);
                         card.Sle(item,false);
                         COUNT += 1;
@@ -778,7 +811,7 @@ public class GameManager : MonoBehaviour
                 {
                     if(item >= 5)
                     {
-                        deck.RemoveAt(item);
+                        //deck.RemoveAt(item);
                         CardController card = Instantiate(cardPrefab, selectField);
                         card.Sle(item,false);
                         COUNT += 1;
@@ -794,7 +827,7 @@ public class GameManager : MonoBehaviour
                 {
                     if(item <= 4)
                     {
-                        deck.RemoveAt(item);
+                        //deck.RemoveAt(item);
                         CardController card = Instantiate(cardPrefab, selectField);
                         card.Sle(item,false);
                         COUNT += 1;
@@ -806,8 +839,60 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    public void Cosshon(int ID){
+    public void CosshonK(int ID){
         CardController card = Instantiate(cardPrefab, playerHand);
         card.Init(ID,true);
+
+        selectUi.SetActive(false);
+        CardController[] SelectList = selectField.GetComponentsInChildren<CardController>();
+        int SC = SelectList.Length;
+        for (int DC = 0; DC != SC; DC++)
+        {
+            cardPrefab.DestroyCard(SelectList[DC]);
+        }
+        SetCanUsePanelHand();
+
+        int n =0;
+        while (n < deck.Count + 1)
+        {
+            if(deck[n] == ID)
+            {
+                deck.RemoveAt(n);
+                break;
+            }
+            n++;
+        }
+    }
+    public void CosshonJ(int ID){
+        CardController card = Instantiate(cardPrefab, playerField);
+        card.SpornCard(ID,true);
+
+        selectUi.SetActive(false);
+        CardController[] SelectList = selectField.GetComponentsInChildren<CardController>();
+        int SC = SelectList.Length;
+        for (int DC = 0; DC != SC; DC++)
+        {
+            cardPrefab.DestroyCard(SelectList[DC]);
+        }
+        SetCanUsePanelHand();
+        
+        int n =0;
+        while (n < deck.Count + 1)
+        {
+            if(deck[n] == ID)
+            {
+                deck.RemoveAt(n);
+                break;
+            }
+            n++;
+        }
+    }
+    public void AppOffer()
+    {
+        CardController[] ACC = playerField.GetComponentsInChildren<CardController>();
+        foreach (CardController card in ACC)
+        {
+            card.view.SetAap(false);
+        }
     }
 }

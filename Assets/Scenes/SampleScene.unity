@@ -1506,6 +1506,8 @@ MonoBehaviour:
   Bom: 1
   KP: 1
   JS: 1
+  CPC: 1
+  CMC: 1
   playerLeaderHP: 10
   enemyLeaderHP: 10
 --- !u!4 &526364299
@@ -1931,7 +1933,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 80, y: 100}
-  m_Spacing: {x: 25, y: 0}
+  m_Spacing: {x: 40, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!1 &717709589
@@ -2744,7 +2746,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 80, y: 100}
-  m_Spacing: {x: 25, y: 0}
+  m_Spacing: {x: 40, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!1 &1062863117

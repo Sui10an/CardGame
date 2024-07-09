@@ -12,5 +12,7 @@ public class CardEntity : ScriptableObject
     public int power;
     public int mana;
     public int needmana;
+    public int manaplus;
+    public int manapluspuls;
     public Sprite icon;
 }
