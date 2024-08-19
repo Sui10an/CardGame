@@ -16,9 +16,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI playerManaPointText, playerDefaultManaPointText;
     [SerializeField] Transform playerLeaderTransform;
 
-    public int playerManaPoint; // ?ï¿½ï¿½g?ï¿½ï¿½p?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ÆŒï¿½?ï¿½ï¿½?ï¿½ï¿½}?ï¿½ï¿½i?ï¿½ï¿½|?ï¿½ï¿½C?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½g
-    public int playerDefaultManaPoint; // ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½^?ï¿½ï¿½[?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½Ä‚ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½x?ï¿½ï¿½[?ï¿½ï¿½X?ï¿½ï¿½Ìƒ}?ï¿½ï¿½i?ï¿½ï¿½|?ï¿½ï¿½C?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½g
-    public int playerManaPlus; //?ï¿½ï¿½}?ï¿½ï¿½i?ï¿½ï¿½v?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½X?ï¿½ï¿½ÌƒJ?ï¿½ï¿½E?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½g?ï¿½ï¿½?ï¿½ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½
+    public int playerManaPoint; // ??¿½?¿½g??¿½?¿½p??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½ÆŒï¿½??¿½?¿½??¿½?¿½}??¿½?¿½i??¿½?¿½|??¿½?¿½C??¿½?¿½??¿½?¿½??¿½?¿½g
+    public int playerDefaultManaPoint; // ??¿½?¿½??¿½?¿½??¿½?¿½^??¿½?¿½[??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½Ä‚ï¿½??¿½?¿½??¿½?¿½??¿½?¿½x??¿½?¿½[??¿½?¿½X??¿½?¿½Ìƒ}??¿½?¿½i??¿½?¿½|??¿½?¿½C??¿½?¿½??¿½?¿½??¿½?¿½g
+    public int playerManaPlus; //??¿½?¿½}??¿½?¿½i??¿½?¿½v??¿½?¿½??¿½?¿½??¿½?¿½X??¿½?¿½ÌƒJ??¿½?¿½E??¿½?¿½??¿½?¿½??¿½?¿½g??¿½?¿½??¿½?¿½?¿½??¿½?¿½??¿½?¿½
     public int TrunCount;
     public int playerBlockHP;
     public int enemyBlockHP;
@@ -28,15 +28,15 @@ public class GameManager : MonoBehaviour
     public int EBaff;
     GridLayoutGroup _gridLayoutGroup;
 
-    public bool isPlayerTurn = true; //?ï¿½ï¿½@Public?ï¿½ï¿½Ö•ÏX
+    public bool isPlayerTurn = true; //??¿½?¿½@Public??¿½?¿½Ö•ÏX
     public bool isnotBattleFaiz = true;
     public bool isFileder = true;
     public bool isCartenP = true;
     public bool isCartenE = true;
     public bool Bom = true;
-    public bool KP = true; // ã‚±ã‚¢ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã‚’ä½¿ã†ãŸã‚
-    public bool JS = true;// éŠƒã®ã‚µãƒ¼ãƒ
-    public bool CPC = true;// éŠƒã®ã‚µãƒ¼ãƒ
+    public bool KP = true; // ã‚±ã‚¢ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã‚’ä½¿ã?ãŸã‚
+    public bool JS = true;// éŠ?ã®ã‚µãƒ¼ãƒ?
+    public bool CPC = true;// éŠ?ã®ã‚µãƒ¼ãƒ?
     public bool CMC = true;
     List<int> deck = new List<int>() {2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13,14,14,15,15};  //
 
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
         StartGame();
     }
 
-    void StartGame() // åˆæœŸå€¤ã®è¨­å®š 
+    void StartGame() // åˆæœŸå€¤ã®è¨­å®? 
     {
         TrunCount = 0;
 
@@ -62,12 +62,12 @@ public class GameManager : MonoBehaviour
         playerLeaderHP = 10;
         ShowLeaderHP();
 
-        /// ?ï¿½ï¿½}?ï¿½ï¿½i?ï¿½ï¿½Ìï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½l?ï¿½ï¿½İ’ï¿½ ///
+        /// ??¿½?¿½}??¿½?¿½i??¿½?¿½Ìï¿½??¿½?¿½??¿½?¿½??¿½?¿½l??¿½?¿½İ’ï¿½ ///
         playerManaPoint = 1;
         playerDefaultManaPoint = 1;
         ShowManaPoint();
 
-        // ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã„ã‚ã„ã‚
+        // ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã?ã‚ã„ã‚?
         playerBlockHP = 0;
         enemyBlockHP = 0;
         isCartenP = false;
@@ -81,30 +81,30 @@ public class GameManager : MonoBehaviour
         CPC = false;
         CMC = false;
 
-        //ãƒ‡ãƒƒã‚­ã®ã‚·ãƒ£ãƒƒãƒ•ãƒ«
+        //ãƒ?ãƒ?ã‚­ã®ã‚·ãƒ£ãƒ?ãƒ•ãƒ«
         Shuffle();
 
-        // åˆæœŸæ‰‹æœ­ã‚’é…ã‚‹
+        // åˆæœŸæ‰‹æœ­ã‚’é?ã‚‹
         SetStartHand();
 
         // åˆæœŸç›¤é¢
         CreateSporn(1, playerField);
         CreateSporn(1, enemyField);
 
-        // ã‚¿ãƒ¼ãƒ³ã®é–‹å§‹
+        // ã‚¿ãƒ¼ãƒ³ã®é–‹å§?
         StartCoroutine(TurnCalc());
     }
-    public void Shuffle() // ãƒ‡ãƒƒã‚­ã‚’ã‚·ãƒ£ãƒƒãƒ•ãƒ«ã™ã‚‹
+    public void Shuffle() // ãƒ?ãƒ?ã‚­ã‚’ã‚·ãƒ£ãƒ?ãƒ•ãƒ«ã™ã‚‹
     {
-        // æ•´æ•° n ã®åˆæœŸå€¤ã¯ãƒ‡ãƒƒã‚­ã®æšæ•°
+        // æ•´æ•° n ã®åˆæœŸå€¤ã¯ãƒ?ãƒ?ã‚­ã®æšæ•°
         int n = deck.Count;
 
-        // nãŒ1ã‚ˆã‚Šå°ã•ããªã‚‹ã¾ã§ç¹°ã‚Šè¿”ã™
+        // nã?1ã‚ˆã‚Šå°ã•ããªã‚‹ã¾ã§ç¹°ã‚Šè¿”ã™
         while (n > 1)
         {
             n--;
 
-            // kã¯ 0 ï½ n+1 ã®é–“ã®ãƒ©ãƒ³ãƒ€ãƒ ãªå€¤
+            // kã¯ 0 ?½? n+1 ã®é–“ã?®ãƒ©ãƒ³ãƒ€ãƒ?ãªå€¤
             int k = UnityEngine.Random.Range(0, n + 1);
 
             // kç•ªç›®ã®ã‚«ãƒ¼ãƒ‰ã‚’tempã«ä»£å…¥
@@ -114,31 +114,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void ShowManaPoint() // ?ï¿½ï¿½}?ï¿½ï¿½i?ï¿½ï¿½|?ï¿½ï¿½C?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½g?ï¿½ï¿½?ï¿½ï¿½\?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ï¿½??ï¿½ï¿½\?ï¿½ï¿½b?ï¿½ï¿½h
+    void ShowManaPoint() // ??¿½?¿½}??¿½?¿½i??¿½?¿½|??¿½?¿½C??¿½?¿½??¿½?¿½??¿½?¿½g??¿½?¿½??¿½?¿½\??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½?¿½???¿½?¿½\??¿½?¿½b??¿½?¿½h
     {
         playerManaPointText.text = playerManaPoint.ToString();
         playerDefaultManaPointText.text = playerDefaultManaPoint.ToString();
-        //?ï¿½ï¿½}?ï¿½ï¿½i?ï¿½ï¿½J?ï¿½ï¿½[?ï¿½ï¿½h?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½
+        //??¿½?¿½}??¿½?¿½i??¿½?¿½J??¿½?¿½[??¿½?¿½h??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½
         SetManaCard();
     }
 
     void CreateCard(int cardID, Transform place)
     {
         CardController card = Instantiate(cardPrefab, place);
-        // Player?ï¿½ï¿½Ìï¿½D?ï¿½ï¿½Éï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ê‚½?ï¿½ï¿½J?ï¿½ï¿½[?ï¿½ï¿½h?ï¿½ï¿½?ï¿½ï¿½Player?ï¿½ï¿½ÌƒJ?ï¿½ï¿½[?ï¿½ï¿½h?ï¿½ï¿½Æ‚ï¿½?ï¿½ï¿½?ï¿½ï¿½
+        // Player??¿½?¿½Ìï¿½D??¿½?¿½Éï¿½??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½ê‚½??¿½?¿½J??¿½?¿½[??¿½?¿½h??¿½?¿½??¿½?¿½Player??¿½?¿½ÌƒJ??¿½?¿½[??¿½?¿½h??¿½?¿½Æ‚ï¿½??¿½?¿½??¿½?¿½
         if (place == playerHand)
         {
             card.Init(cardID, true);
         }
         else
         {
-            card.Init(cardID, false);
+            card.SpornCard(cardID, false);
         }
     }
     void CreateSporn(int cardID, Transform place)
     {
         CardController card = Instantiate(cardPrefab, place);
-        // Player?ï¿½ï¿½Ìï¿½D?ï¿½ï¿½Éï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ê‚½?ï¿½ï¿½J?ï¿½ï¿½[?ï¿½ï¿½h?ï¿½ï¿½?ï¿½ï¿½Player?ï¿½ï¿½ÌƒJ?ï¿½ï¿½[?ï¿½ï¿½h?ï¿½ï¿½Æ‚ï¿½?ï¿½ï¿½?ï¿½ï¿½
+        // Player??¿½?¿½Ìï¿½D??¿½?¿½Éï¿½??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½ê‚½??¿½?¿½J??¿½?¿½[??¿½?¿½h??¿½?¿½??¿½?¿½Player??¿½?¿½ÌƒJ??¿½?¿½[??¿½?¿½h??¿½?¿½Æ‚ï¿½??¿½?¿½??¿½?¿½
         if (place == playerField)
         {
             card.SpornCard(cardID, true);
@@ -151,7 +151,7 @@ public class GameManager : MonoBehaviour
     void CreateMana(int cardID, Transform place)
     {
         CardController card = Instantiate(cardPrefab, place);
-        // Player?ï¿½ï¿½Ìï¿½D?ï¿½ï¿½Éï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ê‚½?ï¿½ï¿½J?ï¿½ï¿½[?ï¿½ï¿½h?ï¿½ï¿½?ï¿½ï¿½Player?ï¿½ï¿½ÌƒJ?ï¿½ï¿½[?ï¿½ï¿½h?ï¿½ï¿½Æ‚ï¿½?ï¿½ï¿½?ï¿½ï¿½
+        // Player??¿½?¿½Ìï¿½D??¿½?¿½Éï¿½??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½ê‚½??¿½?¿½J??¿½?¿½[??¿½?¿½h??¿½?¿½??¿½?¿½Player??¿½?¿½ÌƒJ??¿½?¿½[??¿½?¿½h??¿½?¿½Æ‚ï¿½??¿½?¿½??¿½?¿½
         if (place == playerManaField)
         {
             card.ManaSporn(cardID, true);
@@ -165,7 +165,7 @@ public class GameManager : MonoBehaviour
 
     void DrawCard(Transform hand) // ã‚«ãƒ¼ãƒ‰ã‚’å¼•ã
     {
-        // ãƒ‡ãƒƒã‚­ãŒãªã„ãªã‚‰å¼•ã‹ãªã„
+        // ãƒ?ãƒ?ã‚­ãŒãªã?ãªã‚‰å¼•ã‹ãªã?
         if (deck.Count == 0)
         {
             return;
@@ -175,7 +175,7 @@ public class GameManager : MonoBehaviour
 
         if (playerHandCardList.Length < 7)
         {
-            // ãƒ‡ãƒƒã‚­ã®ä¸€ç•ªä¸Šã®ã‚«ãƒ¼ãƒ‰ã‚’æŠœãå–ã‚Šã€æ‰‹æœ­ã«åŠ ãˆã‚‹
+            // ãƒ?ãƒ?ã‚­ã®ä¸€ç•ªä¸Šã?®ã‚«ãƒ¼ãƒ‰ã‚’æŠœãå–ã‚Šã€æ‰‹æœ­ã«åŠ?ãˆã‚‹
             int cardID = deck[0];
             deck.RemoveAt(0);
             CreateCard(cardID, hand);
@@ -184,7 +184,7 @@ public class GameManager : MonoBehaviour
         SetCanUsePanelHand();
     }
 
-    void SetStartHand() // æ‰‹æœ­ã‚’3æšé…ã‚‹
+    void SetStartHand() // æ‰‹æœ­ã‚?3æšé?ã‚‹
     {
         for (int i = 0; i < 3; i++)
         {
@@ -227,8 +227,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            //EnemyTurn(); // ?ï¿½ï¿½R?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½g?ï¿½ï¿½A?ï¿½ï¿½E?ï¿½ï¿½g?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½
-            StartCoroutine(EnemyTurn()); // StartCoroutine?ï¿½ï¿½ÅŒÄ‚Ño?ï¿½ï¿½?ï¿½ï¿½
+            //EnemyTurn(); // ??¿½?¿½R??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½g??¿½?¿½A??¿½?¿½E??¿½?¿½g??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½
+            StartCoroutine(EnemyTurn()); // StartCoroutine??¿½?¿½ÅŒÄ‚Ño??¿½?¿½??¿½?¿½
         }
     }
     public void PhaseCalc()
@@ -236,18 +236,18 @@ public class GameManager : MonoBehaviour
         uIManager.ShowChangePhasePanel();
     }
 
-    public void ChangeTurn() // ã‚¿ãƒ¼ãƒ³ã‚¨ãƒ³ãƒ‰ãƒœã‚¿ãƒ³ã«ã¤ã‘ã‚‹å‡¦ç†
+    public void ChangeTurn() // ã‚¿ãƒ¼ãƒ³ã‚¨ãƒ³ãƒ‰ã?œã‚¿ãƒ³ã«ã¤ã‘ã‚‹å‡¦ç?
     {
-        isPlayerTurn = !isPlayerTurn; // ã‚¿ãƒ¼ãƒ³ã‚’é€†ã«ã™ã‚‹
+        isPlayerTurn = !isPlayerTurn; // ã‚¿ãƒ¼ãƒ³ã‚’é€?ã«ã™ã‚‹
         uIManager.Stoper();
         ReSetCanUsePanelHand();
         StartCoroutine(TurnCalc()); // ã‚¿ãƒ¼ãƒ³ã‚’ç›¸æ‰‹ã«å›ã™
     }
 
-    public void ChangePhase() // ?ï¿½ï¿½^?ï¿½ï¿½[?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½G?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½h?ï¿½ï¿½{?ï¿½ï¿½^?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½É‚Â‚ï¿½?ï¿½ï¿½éˆï¿½?ï¿½ï¿½
+    public void ChangePhase() // ??¿½?¿½^??¿½?¿½[??¿½?¿½??¿½?¿½??¿½?¿½G??¿½?¿½??¿½?¿½??¿½?¿½h??¿½?¿½{??¿½?¿½^??¿½?¿½??¿½?¿½??¿½?¿½É‚Â‚ï¿½??¿½?¿½éˆï¿½??¿½?¿½
     {
         isFileder = false;
-        PhaseCalc(); // ?ï¿½ï¿½^?ï¿½ï¿½[?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½É‰ï¿½
+        PhaseCalc(); // ??¿½?¿½^??¿½?¿½[??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½É‰ï¿½
     }
 
     void PlayerTurn()
@@ -269,7 +269,7 @@ public class GameManager : MonoBehaviour
                 card.model.manaplus = 0;
             }
 
-            /// å¼¾è–¬ç®±ã®å‡¦ç†
+            /// å¼¾è–¬ç®±ã®å‡¦ç?
             if(playerManaPlus != 0)
             {
                 for(int MPP = 0;MPP < playerManaPlus; MPP++)
@@ -297,7 +297,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void BattleFaiz()//?ï¿½ï¿½o?ï¿½ï¿½g?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½t?ï¿½ï¿½F?ï¿½ï¿½[?ï¿½ï¿½Y?ï¿½ï¿½?ï¿½ï¿½İ’ï¿½
+    public void BattleFaiz()//??¿½?¿½o??¿½?¿½g??¿½?¿½??¿½?¿½??¿½?¿½t??¿½?¿½F??¿½?¿½[??¿½?¿½Y??¿½?¿½??¿½?¿½İ’ï¿½
     {
         ReSetCanUsePanelHand();
         ReSetCanUsePanelMana();
@@ -318,16 +318,16 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void ReduceManaPoint(int cost) // ?ï¿½ï¿½R?ï¿½ï¿½X?ï¿½ï¿½g?ï¿½ï¿½Ì•ï¿½?ï¿½ï¿½A?ï¿½ï¿½}?ï¿½ï¿½i?ï¿½ï¿½|?ï¿½ï¿½C?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½g?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ç‚·
+    public void ReduceManaPoint(int cost) // ??¿½?¿½R??¿½?¿½X??¿½?¿½g??¿½?¿½Ì•ï¿½??¿½?¿½A??¿½?¿½}??¿½?¿½i??¿½?¿½|??¿½?¿½C??¿½?¿½??¿½?¿½??¿½?¿½g??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½ç‚·
         {
             playerManaPoint -= cost;
             ShowManaPoint();
 
             SetCanUsePanelHand();
          }
-    public void CardEffect(int cardId) // ã‚«ãƒ¼ãƒ‰ã®åŠ¹æœè¡¨
+    public void CardEffect(int cardId) // ã‚«ãƒ¼ãƒ‰ã?®åŠ¹æœè¡¨
     {
-        if (1 <= cardId && cardId <= 4) //éŠƒã®å‡ºç¾
+        if (1 <= cardId && cardId <= 4) //éŠ?ã®å‡ºç¾
         {
             CreateSporn(cardId, playerField);
         }
@@ -338,7 +338,7 @@ public class GameManager : MonoBehaviour
 
             ShowManaPoint();
         }
-        if (cardId == 6) //ãƒœãƒ³ãƒãƒ¼
+        if (cardId == 6) //ãƒœãƒ³ãƒã?¼
         {
             CardController[] cardList = enemyField.GetComponentsInChildren<CardController>();
             Bom = true;
@@ -360,7 +360,7 @@ public class GameManager : MonoBehaviour
             }
             ShowLeaderHP();
         }
-        if (cardId == 8) //è£…ç”²1
+        if (cardId == 8) //è£?ç”²1
         {
             if (isPlayerTurn == true)
             {
@@ -391,7 +391,7 @@ public class GameManager : MonoBehaviour
             KP = true;
             Selecter();
         }
-        if (cardId == 11) //è£…ç”²2
+        if (cardId == 11) //è£?ç”²2
         {
             if (isPlayerTurn == true)
             {
@@ -403,7 +403,7 @@ public class GameManager : MonoBehaviour
             }
             ShowLeaderHP();
         }
-        if (cardId == 12) //éŠƒã‚µãƒ¼ãƒ
+        if (cardId == 12) //éŠ?ã‚µãƒ¼ãƒ?
         {
             JS = true;
             Selecter();
@@ -433,7 +433,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SetCanUsePanelMana() // ?ï¿½ï¿½?ï¿½ï¿½D?ï¿½ï¿½ÌƒJ?ï¿½ï¿½[?ï¿½ï¿½h?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½æ“¾?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ÄA?ï¿½ï¿½g?ï¿½ï¿½p?ï¿½ï¿½Â”\?ï¿½ï¿½ÈƒJ?ï¿½ï¿½[?ï¿½ï¿½h?ï¿½ï¿½?ï¿½ï¿½CanUse?ï¿½ï¿½p?ï¿½ï¿½l?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½t?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½
+    public void SetCanUsePanelMana() // ??¿½?¿½??¿½?¿½D??¿½?¿½ÌƒJ??¿½?¿½[??¿½?¿½h??¿½?¿½??¿½?¿½??¿½?¿½æ“¾??¿½?¿½??¿½?¿½??¿½?¿½ÄA??¿½?¿½g??¿½?¿½p??¿½?¿½Â”\??¿½?¿½ÈƒJ??¿½?¿½[??¿½?¿½h??¿½?¿½??¿½?¿½CanUse??¿½?¿½p??¿½?¿½l??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½t??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½
     {
         CardController[] playerManaCardList = playerManaField.GetComponentsInChildren<CardController>();
         foreach (CardController card in playerManaCardList)
@@ -444,7 +444,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ReSetCanUsePanelMana() // ?ï¿½ï¿½?ï¿½ï¿½D?ï¿½ï¿½ÌƒJ?ï¿½ï¿½[?ï¿½ï¿½h?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½æ“¾?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ÄA?ï¿½ï¿½g?ï¿½ï¿½p?ï¿½ï¿½s?ï¿½ï¿½\?ï¿½ï¿½ÈƒJ?ï¿½ï¿½[?ï¿½ï¿½h?ï¿½ï¿½É‚ï¿½?ï¿½ï¿½?ï¿½ï¿½
+    public void ReSetCanUsePanelMana() // ??¿½?¿½??¿½?¿½D??¿½?¿½ÌƒJ??¿½?¿½[??¿½?¿½h??¿½?¿½??¿½?¿½??¿½?¿½æ“¾??¿½?¿½??¿½?¿½??¿½?¿½ÄA??¿½?¿½g??¿½?¿½p??¿½?¿½s??¿½?¿½\??¿½?¿½ÈƒJ??¿½?¿½[??¿½?¿½h??¿½?¿½É‚ï¿½??¿½?¿½??¿½?¿½
     {
         CardController[] playerManaCardList = playerManaField.GetComponentsInChildren<CardController>();
         foreach (CardController card in playerManaCardList)
@@ -453,7 +453,7 @@ public class GameManager : MonoBehaviour
             card.view.SetCanUsePanel(card.model.canUse);
         }
     }
-    void SetCanUsePanelHand() // ?ï¿½ï¿½?ï¿½ï¿½D?ï¿½ï¿½ÌƒJ?ï¿½ï¿½[?ï¿½ï¿½h?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½æ“¾?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ÄA?ï¿½ï¿½g?ï¿½ï¿½p?ï¿½ï¿½Â”\?ï¿½ï¿½ÈƒJ?ï¿½ï¿½[?ï¿½ï¿½h?ï¿½ï¿½?ï¿½ï¿½CanUse?ï¿½ï¿½p?ï¿½ï¿½l?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½t?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½
+    void SetCanUsePanelHand() // ??¿½?¿½??¿½?¿½D??¿½?¿½ÌƒJ??¿½?¿½[??¿½?¿½h??¿½?¿½??¿½?¿½??¿½?¿½æ“¾??¿½?¿½??¿½?¿½??¿½?¿½ÄA??¿½?¿½g??¿½?¿½p??¿½?¿½Â”\??¿½?¿½ÈƒJ??¿½?¿½[??¿½?¿½h??¿½?¿½??¿½?¿½CanUse??¿½?¿½p??¿½?¿½l??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½t??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½
     {
         CardController[] playerHandCardList = playerHand.GetComponentsInChildren<CardController>();
         //CardController[] playerFieldCardList = playerField.GetComponentsInChildren<CardController>();
@@ -472,7 +472,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void ReSetCanUsePanelHand() // ?ï¿½ï¿½?ï¿½ï¿½D?ï¿½ï¿½ÌƒJ?ï¿½ï¿½[?ï¿½ï¿½h?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½æ“¾?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ÄA?ï¿½ï¿½g?ï¿½ï¿½p?ï¿½ï¿½s?ï¿½ï¿½\?ï¿½ï¿½ÈƒJ?ï¿½ï¿½[?ï¿½ï¿½h?ï¿½ï¿½É‚ï¿½?ï¿½ï¿½?ï¿½ï¿½
+    void ReSetCanUsePanelHand() // ??¿½?¿½??¿½?¿½D??¿½?¿½ÌƒJ??¿½?¿½[??¿½?¿½h??¿½?¿½??¿½?¿½??¿½?¿½æ“¾??¿½?¿½??¿½?¿½??¿½?¿½ÄA??¿½?¿½g??¿½?¿½p??¿½?¿½s??¿½?¿½\??¿½?¿½ÈƒJ??¿½?¿½[??¿½?¿½h??¿½?¿½É‚ï¿½??¿½?¿½??¿½?¿½
     {
         CardController[] playerHandCardList = playerHand.GetComponentsInChildren<CardController>();
         foreach (CardController card in playerHandCardList)
@@ -483,7 +483,7 @@ public class GameManager : MonoBehaviour
     }
 
     
-    IEnumerator EnemyTurn() // StartCoroutine?ï¿½ï¿½ÅŒÄ‚Î‚ê‚½?ï¿½ï¿½Ì‚ÅAIEnumerator?ï¿½ï¿½É•ÏX
+    IEnumerator EnemyTurn() // StartCoroutine??¿½?¿½ÅŒÄ‚Î‚ê‚½??¿½?¿½Ì‚ÅAIEnumerator??¿½?¿½É•ÏX
     {
         PanelOff();
         cover.SetActive(true);
@@ -506,7 +506,7 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        /// ?ï¿½ï¿½G?ï¿½ï¿½Ìƒt?ï¿½ï¿½B?ï¿½ï¿½[?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½h?ï¿½ï¿½ÌƒJ?ï¿½ï¿½[?ï¿½ï¿½h?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½U?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½Â”\?ï¿½ï¿½É‚ï¿½?ï¿½ï¿½ÄA?ï¿½ï¿½Î‚Ì˜g?ï¿½ï¿½?ï¿½ï¿½t?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ ///
+        /// ??¿½?¿½G??¿½?¿½Ìƒt??¿½?¿½B??¿½?¿½[??¿½?¿½??¿½?¿½??¿½?¿½h??¿½?¿½ÌƒJ??¿½?¿½[??¿½?¿½h??¿½?¿½??¿½?¿½??¿½?¿½U??¿½?¿½??¿½?¿½??¿½?¿½Â”\??¿½?¿½É‚ï¿½??¿½?¿½ÄA??¿½?¿½Î‚Ì˜g??¿½?¿½??¿½?¿½t??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½ ///
         SetAttackableFieldCard(enemyFieldCardList, true);
 
         yield return new WaitForSeconds(1f);
@@ -529,7 +529,7 @@ public class GameManager : MonoBehaviour
 
         while (Array.Exists(enemyFieldCardListSecond, card => card.model.canAttack))
         {
-            // ?ï¿½ï¿½U?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½Â”\?ï¿½ï¿½J?ï¿½ï¿½[?ï¿½ï¿½h?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½æ“¾
+            // ??¿½?¿½U??¿½?¿½??¿½?¿½??¿½?¿½Â”\??¿½?¿½J??¿½?¿½[??¿½?¿½h??¿½?¿½??¿½?¿½??¿½?¿½æ“¾
             CardController[] enemyCanAttackCardList = Array.FindAll(enemyFieldCardListSecond, card => card.model.canAttack);
             CardController[] playerFieldCardList = playerField.GetComponentsInChildren<CardController>();
 
@@ -546,14 +546,14 @@ public class GameManager : MonoBehaviour
         isnotBattleFaiz = true;
         isFileder = true;
         cover.SetActive(false);
-        ChangeTurn(); // ?ï¿½ï¿½^?ï¿½ï¿½[?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½G?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½h?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½
+        ChangeTurn(); // ??¿½?¿½^??¿½?¿½[??¿½?¿½??¿½?¿½??¿½?¿½G??¿½?¿½??¿½?¿½??¿½?¿½h??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½
     }
 
 
     public void CardBattle(CardController attackCard, CardController defenceCard)
     {
 
-        // ?ï¿½ï¿½U?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½J?ï¿½ï¿½[?ï¿½ï¿½h?ï¿½ï¿½ÆU?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½J?ï¿½ï¿½[?ï¿½ï¿½h?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½v?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½C?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½[?ï¿½ï¿½ÌƒJ?ï¿½ï¿½[?ï¿½ï¿½h?ï¿½ï¿½È‚ï¿½o?ï¿½ï¿½g?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½È‚ï¿½
+        // ??¿½?¿½U??¿½?¿½??¿½?¿½??¿½?¿½J??¿½?¿½[??¿½?¿½h??¿½?¿½ÆU??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½J??¿½?¿½[??¿½?¿½h??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½v??¿½?¿½??¿½?¿½??¿½?¿½C??¿½?¿½??¿½?¿½??¿½?¿½[??¿½?¿½ÌƒJ??¿½?¿½[??¿½?¿½h??¿½?¿½È‚ï¿½o??¿½?¿½g??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½È‚ï¿½
         if (attackCard.model.PlayerCard == defenceCard.model.PlayerCard)
         {
             if(attackCard.model.ManaCard == true)
@@ -634,7 +634,7 @@ public class GameManager : MonoBehaviour
         }
         int attackpower = attackCard.model.power + baff;
 
-        if (attackCard.model.PlayerCard == true) // attackCard?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½v?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½C?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½[?ï¿½ï¿½ÌƒJ?ï¿½ï¿½[?ï¿½ï¿½h?ï¿½ï¿½È‚ï¿½
+        if (attackCard.model.PlayerCard == true) // attackCard??¿½?¿½??¿½?¿½??¿½?¿½v??¿½?¿½??¿½?¿½??¿½?¿½C??¿½?¿½??¿½?¿½??¿½?¿½[??¿½?¿½ÌƒJ??¿½?¿½[??¿½?¿½h??¿½?¿½È‚ï¿½
         {
             if(enemyBlockHP != 0)
             {
@@ -652,9 +652,9 @@ public class GameManager : MonoBehaviour
                 }
                 attackpower = AP;
             }
-            enemyLeaderHP -= attackpower; // ?ï¿½ï¿½G?ï¿½ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½[?ï¿½ï¿½_?ï¿½ï¿½[?ï¿½ï¿½?ï¿½ï¿½HP?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ç‚·
+            enemyLeaderHP -= attackpower; // ??¿½?¿½G??¿½?¿½?¿½???¿½?¿½??¿½?¿½[??¿½?¿½_??¿½?¿½[??¿½?¿½??¿½?¿½HP??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½ç‚·
         }
-        else // attackCard?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½G?ï¿½ï¿½ÌƒJ?ï¿½ï¿½[?ï¿½ï¿½h?ï¿½ï¿½È‚ï¿½
+        else // attackCard??¿½?¿½??¿½?¿½??¿½?¿½G??¿½?¿½ÌƒJ??¿½?¿½[??¿½?¿½h??¿½?¿½È‚ï¿½
         {
             if(isCartenP == true)
             {
@@ -679,15 +679,15 @@ public class GameManager : MonoBehaviour
                 }
                 attackpower = AP;
             }
-            playerLeaderHP -= attackpower; // ?ï¿½ï¿½v?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½C?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½[?ï¿½ï¿½ï¿½??ï¿½ï¿½?ï¿½ï¿½[?ï¿½ï¿½_?ï¿½ï¿½[?ï¿½ï¿½?ï¿½ï¿½HP?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ç‚·
+            playerLeaderHP -= attackpower; // ??¿½?¿½v??¿½?¿½??¿½?¿½??¿½?¿½C??¿½?¿½??¿½?¿½??¿½?¿½[??¿½?¿½?¿½???¿½?¿½??¿½?¿½[??¿½?¿½_??¿½?¿½[??¿½?¿½??¿½?¿½HP??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½ç‚·
         }
 
-        //enemyLeaderHP -= attackCard.model.power; // ?ï¿½ï¿½R?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½g?ï¿½ï¿½A?ï¿½ï¿½E?ï¿½ï¿½g?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½
+        //enemyLeaderHP -= attackCard.model.power; // ??¿½?¿½R??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½g??¿½?¿½A??¿½?¿½E??¿½?¿½g??¿½?¿½??¿½?¿½??¿½?¿½??¿½?¿½
 
         attackCard.model.mana -= attackCard.model.needmana;
         attackCard.model.canAttack = false;
         attackCard.view.SetCanAttackPanel(false);
-        Debug.Log("?ï¿½ï¿½G?ï¿½ï¿½?ï¿½ï¿½HP?ï¿½ï¿½ÍA" + enemyLeaderHP);
+        Debug.Log("??¿½?¿½G??¿½?¿½??¿½?¿½HP??¿½?¿½ÍA" + enemyLeaderHP);
         ChangeManaText(attackCard);
         ShowLeaderHP();
     }
