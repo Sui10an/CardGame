@@ -8,26 +8,24 @@ public class CardMovement : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
 {
     public Transform cardParent;
     //public Transform carryCard;
-    bool canDrag = true; /// y‰ğà‡@zƒJ[ƒh‚ğ“®‚©‚¹‚é‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO
-    
+    bool canDrag = true; /// ï¿½yï¿½ï¿½ï¿½ï¿½@ï¿½zï¿½Jï¿½[ï¿½hï¿½ğ“®‚ï¿½ï¿½ï¿½ï¿½é‚©ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½Ìƒtï¿½ï¿½ï¿½O
 
-    public void OnBeginDrag(PointerEventData eventData) // ƒhƒ‰ƒbƒO‚ğn‚ß‚é‚Æ‚«‚És‚¤ˆ—
+    public void OnBeginDrag(PointerEventData eventData) // ï¿½hï¿½ï¿½ï¿½bï¿½Oï¿½ï¿½ï¿½nï¿½ß‚ï¿½Æ‚ï¿½ï¿½Ésï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
 
         CardController card = GetComponent<CardController>();
         canDrag = true;
 
-        if (card.model.FieldCard == false) // èD‚ÌƒJ[ƒh‚È‚ç
+        if (card.model.FieldCard == false) // ï¿½ï¿½Dï¿½ÌƒJï¿½[ï¿½hï¿½È‚ï¿½
         {
-            if (card.model.canUse == false) // ƒ}ƒiƒRƒXƒg‚æ‚è­‚È‚¢ƒJ[ƒh‚Í“®‚©‚¹‚È‚¢
+            if (card.model.canUse == false) // ï¿½}ï¿½iï¿½Rï¿½Xï¿½gï¿½ï¿½è­ï¿½È‚ï¿½ï¿½Jï¿½[ï¿½hï¿½Í“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½
             {
                 canDrag = false;
             }
-
         }
         else
         {
-            if (card.model.canAttack == false) // UŒ‚•s‰Â”\‚ÈƒJ[ƒh‚Í“®‚©‚¹‚È‚¢
+            if (card.model.canAttack == false) // ï¿½Uï¿½ï¿½ï¿½sï¿½Â”\ï¿½ÈƒJï¿½[ï¿½hï¿½Í“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½
             {
                 canDrag = false;
             }
@@ -40,12 +38,12 @@ public class CardMovement : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
 
         cardParent = transform.parent;
         transform.SetParent(cardParent.parent, false);
-        GetComponent<CanvasGroup>().blocksRaycasts = false; // blocksRaycasts‚ğƒIƒt‚É‚·‚é
+        GetComponent<CanvasGroup>().blocksRaycasts = false; // blocksRaycastsï¿½ï¿½ï¿½Iï¿½tï¿½É‚ï¿½ï¿½ï¿½
     }
 
-        public void OnDrag(PointerEventData eventData) // ƒhƒ‰ƒbƒO‚µ‚½‚É‹N‚±‚·ˆ—
+    public void OnDrag(PointerEventData eventData) // ï¿½hï¿½ï¿½ï¿½bï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‹Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
-        if (canDrag == false) ///y‰ğà‡Bzƒtƒ‰ƒO‚ªFalse‚È‚çˆ—‚ğ~‚ß‚é
+        if (canDrag == false) ///ï¿½yï¿½ï¿½ï¿½ï¿½Bï¿½zï¿½tï¿½ï¿½ï¿½Oï¿½ï¿½Falseï¿½È‚çˆï¿½ï¿½ï¿½ï¿½ï¿½~ï¿½ß‚ï¿½
         {
             return;
         }
@@ -53,15 +51,15 @@ public class CardMovement : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
         transform.position = eventData.position;
     }
 
-    public void OnEndDrag(PointerEventData eventData) // ƒJ[ƒh‚ğ—£‚µ‚½‚Æ‚«‚És‚¤ˆ—
+    public void OnEndDrag(PointerEventData eventData) // ï¿½Jï¿½[ï¿½hï¿½ğ—£‚ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½Ésï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
-        if (canDrag == false) ///y‰ğà‡Bzƒtƒ‰ƒO‚ªFalse‚È‚çˆ—‚ğ~‚ß‚é
+        if (canDrag == false) ///ï¿½yï¿½ï¿½ï¿½ï¿½Bï¿½zï¿½tï¿½ï¿½ï¿½Oï¿½ï¿½Falseï¿½È‚çˆï¿½ï¿½ï¿½ï¿½ï¿½~ï¿½ß‚ï¿½
         {
             return;
         }
 
         transform.SetParent(cardParent, false);
-        GetComponent<CanvasGroup>().blocksRaycasts = true; // blocksRaycasts‚ğƒIƒ“‚É‚·‚é 
+        GetComponent<CanvasGroup>().blocksRaycasts = true; // blocksRaycastsï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½ 
     }
 
     public IEnumerator AttackMotion(Transform target)
@@ -69,15 +67,13 @@ public class CardMovement : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
         Vector3 currentPosition = transform.position;
         cardParent = transform.parent;
 
-        transform.SetParent(cardParent.parent); // card‚Ìe‚ğˆê“I‚ÉCanvas‚É‚·‚é
+        transform.SetParent(cardParent.parent); // cardï¿½Ìeï¿½ï¿½ï¿½êï¿½Iï¿½ï¿½Canvasï¿½É‚ï¿½ï¿½ï¿½
 
         transform.DOMove(target.position, 0.25f);
         yield return new WaitForSeconds(0.25f);
         transform.DOMove(currentPosition, 0.25f);
         yield return new WaitForSeconds(0.25f);
 
-        transform.SetParent(cardParent); // card‚Ìe‚ğŒ³‚É–ß‚·
+        transform.SetParent(cardParent); // cardï¿½Ìeï¿½ï¿½ï¿½ï¿½ï¿½É–ß‚ï¿½
     }
-
-    
 }

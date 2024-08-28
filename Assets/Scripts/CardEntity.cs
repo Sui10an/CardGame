@@ -15,4 +15,6 @@ public class CardEntity : ScriptableObject
     public int manaplus;
     public int manapluspuls;
     public Sprite icon;
+    public CardEntity changeCard;
+    public int canChangeCount;
 }

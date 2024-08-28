@@ -15,7 +15,10 @@ MonoBehaviour:
   cardId: 100
   name: "\u30B9\u30CA\u30A4\u30D1\u30FC"
   cost: 0
-  power: 5
+  power: 3
   mana: 0
-  needmana: 10
+  needmana: 0
+  manaplus: 0
+  manapluspuls: 0
   icon: {fileID: 0}
+  changeCard: {fileID: 0}

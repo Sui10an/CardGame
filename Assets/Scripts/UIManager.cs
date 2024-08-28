@@ -37,7 +37,6 @@ public class UIManager : MonoBehaviour
     public void ShowChangePhasePanel()
     {
         changePhasePanel.SetActive(true);
-                       
     }
     public void Stoper()
     {

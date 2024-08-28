@@ -85,6 +85,26 @@ public class CardController : MonoBehaviour
             Ecard.view.SetBomPanel(false);
         }
     }
+    public void GunChange()//スナイパーライフルorピストルに変化。カードのSRChangeButtonから発動
+    {
+        if(model.canAttack)
+        {
+            if(!model.isChange)
+            {
+                model.name = model.changeCard.name;
+                model.power = model.changeCard.power;
+                model.icon = model.changeCard.icon;
+                model.isChange = true;
+            }else
+            {
+                model.name = model.rootCard.name;
+                model.power = model.rootCard.power;
+                model.icon = model.rootCard.icon;
+                model.isChange = false;
+            }
+            view.Show(model);
+        }
+    }
     public void SelectEffect(CardController card)
     {
         if(GameManager.instance.KP == true)

@@ -22,6 +22,11 @@ public class CardModel
     public bool ManaCard = false;
     public bool SRuse = false;
     public bool SRcan = false;
+    public CardEntity rootCard;
+    public CardEntity changeCard;
+    public bool isChange;
+    public int changeCount;
+    public int canChangeCount;
 
     public CardModel(int cardID, bool playerCard) // �f�[�^���󂯎��A���̏���
     {
@@ -42,6 +47,8 @@ public class CardModel
         manaplus = cardEntity.manaplus ;
         manapluspuls = cardEntity.manapluspuls;
         PlayerCard = playerCard;
+        rootCard = cardEntity;
+        changeCard = cardEntity.changeCard;
+        canChangeCount = cardEntity.canChangeCount;
     }
-    
 }

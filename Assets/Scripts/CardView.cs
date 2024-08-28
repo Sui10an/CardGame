@@ -9,7 +9,7 @@ public class CardView : MonoBehaviour
     [SerializeField] TextMeshProUGUI nameText, powerText, costText, attackText;
     [SerializeField] public TextMeshProUGUI manas;
     [SerializeField] Image iconImage;
-    [SerializeField] GameObject canAttackPanel, canUsePanel, changeSrPanel,selectPanel,Aap;
+    [SerializeField] GameObject canAttackPanel, canUsePanel, changeSrPanel, changeSrButton, selectPanel, Aap;
     [SerializeField] GameObject manaCost, attackCost,manaPanel;
 
     public void Show(CardModel cardModel) // cardModelのデータ取得と反映
@@ -48,6 +48,7 @@ public class CardView : MonoBehaviour
     public void ChangeSR(bool flag)
     {
         changeSrPanel.SetActive(flag);
+        changeSrButton.SetActive(flag);
     }
     public void SetBomPanel(bool flag) // �t���O�ɍ��킹��CanUsePanel��t����or����
     {
