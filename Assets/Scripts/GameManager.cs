@@ -55,15 +55,13 @@ public class GameManager : MonoBehaviour
         StartGame();
     }
 
-    void StartGame() // 初期値の設�? 
+    void StartGame() // 初期値の設�?
     {
         TrunCount = 0;
 
         enemyLeaderHP = 10;
         playerLeaderHP = 10;
         ShowLeaderHP();
-
-        /// ??��?��}??��?��i??��?��̏�??��?��??��?��??��?��l??��?��ݒ� ///
         playerManaPoint = 1;
         playerDefaultManaPoint = 1;
         ShowManaPoint();
@@ -219,16 +217,20 @@ public class GameManager : MonoBehaviour
         CreateMana(cardID, mpt);
     }
 
-    IEnumerator TurnCalc() // 
+    IEnumerator TurnCalc() //
     {
         yield return StartCoroutine(uIManager.ShowChangeTurnPanel());
         if (isPlayerTurn)
         {
-            PlayerTurn();
+            if(isnotBattleFaiz)
+            {
+                PlayerTurn();
+            }else
+            {
+            }
         }
         else
         {
-            //EnemyTurn(); // ??��?��R??��?��??��?��??��?��??��?��??��?��g??��?��A??��?��E??��?��g??��?��??��?��??��?��??��?��
             StartCoroutine(EnemyTurn()); // StartCoroutine??��?��ŌĂяo??��?��??��?��
         }
     }
@@ -239,69 +241,57 @@ public class GameManager : MonoBehaviour
 
     public void ChangeTurn() // ターンエンド�?�タンにつける処�?
     {
-        isPlayerTurn = !isPlayerTurn; // ターンを�?にする
+        isPlayerTurn = !isPlayerTurn;
+        isnotBattleFaiz = true;// ターンを�?にする
+        PanelOff();
         uIManager.Stoper();
         ReSetCanUsePanelHand();
+        ReSetCanUsePanelMana();
+        CardController[] playerFieldCardList = playerField.GetComponentsInChildren<CardController>();
+        SetAttackableFieldCard(playerFieldCardList, false);
         StartCoroutine(TurnCalc()); // ターンを相手に回す
-    }
-
-    public void ChangePhase() // ??��?��^??��?��[??��?��??��?��??��?��G??��?��??��?��??��?��h??��?��{??��?��^??��?��??��?��??��?��ɂ�??��?��鏈�??��?��
-    {
-        isFileder = false;
-        PhaseCalc(); // ??��?��^??��?��[??��?��??��?��??��?��??��?��??��?��ɉ�
     }
 
     void PlayerTurn()
     {
         TrunCount = TrunCount + 1;
         Debug.Log("Playerのターン");
-        CardController[] playerFieldCardList = playerField.GetComponentsInChildren<CardController>();
-        CheckHPID(playerFieldCardList);
-
-        if (isFileder == true)
+        PanelOn();
+        CardController[] playerFieldList = playerField.GetComponentsInChildren<CardController>();
+        foreach(CardController card in playerFieldList)
         {
-            PanelOn();
+            card.model.manaplus = 0;
         }
 
-        if(isnotBattleFaiz == true)
+        /// 弾薬箱の処�?
+        if(playerManaPlus != 0)
         {
-            CardController[] playerFieldList = playerField.GetComponentsInChildren<CardController>();
-            foreach(CardController card in playerFieldList){
-                card.model.manaplus = 0;
+            for(int MPP = 0;MPP < playerManaPlus; MPP++)
+            {
+                playerManaPoint++;
             }
+            playerManaPlus = 0;
+        }
+        playerDefaultManaPoint++;
+        playerManaPoint++;
+        ShowManaPoint();
 
-            /// 弾薬箱の処�?
-            if(playerManaPlus != 0)
-            {
-                for(int MPP = 0;MPP < playerManaPlus; MPP++)
-                {
-                    playerManaPoint++;
-                }
-                playerManaPlus = 0;
-            }
-            playerDefaultManaPoint++;
-            playerManaPoint++;
-            ShowManaPoint();
-
-            DrawCard(playerHand); // 手札を一枚加える
-            if(isCartenP == true)
-            {
-                hPCartenP = 0;
-                isCartenP = false;
-                eDown.text = hPCartenP.ToString();
-            }
-            if(PBaff != 0)
-            {
-                PBaff = 0;
-                pBaff.text = null;
-            }
+        DrawCard(playerHand); // 手札を一枚加える
+        if(isCartenP == true)
+        {
+            hPCartenP = 0;
+            isCartenP = false;
+            eDown.text = hPCartenP.ToString();
+        }
+        if(PBaff != 0)
+        {
+            PBaff = 0;
+            pBaff.text = null;
         }
     }
 
     public void BattleFaiz()//??��?��o??��?��g??��?��??��?��??��?��t??��?��F??��?��[??��?��Y??��?��??��?��ݒ�
     {
-        ReSetCanUsePanelHand();
-        ReSetCanUsePanelMana();
         if (TrunCount == 1 || isnotBattleFaiz == false)
         {
             uIManager.Stoper();
@@ -309,16 +299,19 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            isnotBattleFaiz = false;
+            ReSetCanUsePanelHand();
+            ReSetCanUsePanelMana();
             uIManager.Stoper();
+            PanelOff();
+            isnotBattleFaiz = false;
             StartCoroutine(TurnCalc());
             CardController[] playerFieldCardList = playerField.GetComponentsInChildren<CardController>();
             SetAttackableFieldCard(playerFieldCardList, true);
-            PanelOff();
+            CheckHPID(playerFieldCardList);
         }
     }
 
-    public void ReduceManaPoint(int cost) // ??��?��R??��?��X??��?��g??��?��̕�??��?��A??��?��}??��?��i??��?��|??��?��C??��?��??��?��??��?��g??��?��??��?��??��?��??��?��??��?��炷
+    public void ReduceManaPoint(int cost) //??��?��R??��?��X??��?��g??��?��̕�??��?��A??��?��}??��?��i??��?��|??��?��C??��?��??��?��??��?��g??��?��??��?��??��?��??��?��??��?��炷
     {
         playerManaPoint -= cost;
         ShowManaPoint();
@@ -341,7 +334,7 @@ public class GameManager : MonoBehaviour
         if (cardId == 6) //ボンバ�?�
         {
             CardController[] handList = playerHand.GetComponentsInChildren<CardController>();
-            int Counttt = UnityEngine.Random.Range(1, handList.Length);
+            int Counttt = UnityEngine.Random.Range(0, handList.Length);
             CardController card1 = handList[Counttt];
             card1.DestroyCard(card1);
             CardController[] cardList = enemyField.GetComponentsInChildren<CardController>();
@@ -427,49 +420,71 @@ public class GameManager : MonoBehaviour
         }
         if (cardId == 14) //拡張
         {
-            useField.SetActive(false);
+            PanelOff();
             Cakuthou();
         }
         if (cardId == 15) //スコ
         {
-            useField.SetActive(false);
+            PanelOff();
             ChangePower();
         }
     }
 
     public void SetCanUsePanelMana() // ??��?��??��?��D??��?��̃J??��?��[??��?��h??��?��??��?��??��?��擾??��?��??��?��??��?��āA??��?��g??��?��p??��?��\??��?��ȃJ??��?��[??��?��h??��?��??��?��CanUse??��?��p??��?��l??��?��??��?��??��?��??��?��t??��?��??��?��??��?��??��?��
     {
-        CardController[] playerManaCardList = playerManaField.GetComponentsInChildren<CardController>();
-        foreach (CardController card in playerManaCardList)
+        if(isnotBattleFaiz)
         {
-            card.model.canUse = true;
-            card.model.canAttack = true;
-            card.view.SetCanUsePanel(card.model.canUse);
+            CardController[] playerManaCardList = playerManaField.GetComponentsInChildren<CardController>();
+            foreach (CardController card in playerManaCardList)
+            {
+                card.model.canUse = true;
+                card.model.canAttack = true;
+                card.view.SetCanUsePanel(card.model.canUse);
+            }
         }
     }
 
     public void ReSetCanUsePanelMana() // ??��?��??��?��D??��?��̃J??��?��[??��?��h??��?��??��?��??��?��擾??��?��??��?��??��?��āA??��?��g??��?��p??��?��s??��?��\??��?��ȃJ??��?��[??��?��h??��?��ɂ�??��?��??��?��
     {
-        CardController[] playerManaCardList = playerManaField.GetComponentsInChildren<CardController>();
-        foreach (CardController card in playerManaCardList)
+        if(isnotBattleFaiz)
         {
-            card.model.canUse = false;
-            card.model.canAttack = false;
-            card.view.SetCanUsePanel(card.model.canUse);
-        }
-    }
-    void SetCanUsePanelHand() // ??��?��??��?��D??��?��̃J??��?��[??��?��h??��?��??��?��??��?��擾??��?��??��?��??��?��āA??��?��g??��?��p??��?��\??��?��ȃJ??��?��[??��?��h??��?��??��?��CanUse??��?��p??��?��l??��?��??��?��??��?��??��?��t??��?��??��?��??��?��??��?��
-    {
-        CardController[] playerHandCardList = playerHand.GetComponentsInChildren<CardController>();
-        //CardController[] playerFieldCardList = playerField.GetComponentsInChildren<CardController>();
-        foreach (CardController card in playerHandCardList)
-        {
-            if (card.model.cost <= playerManaPoint)
+            CardController[] playerManaCardList = playerManaField.GetComponentsInChildren<CardController>();
+            foreach (CardController card in playerManaCardList)
             {
-                card.model.canUse = true;
+                card.model.canUse = false;
+                card.model.canAttack = false;
                 card.view.SetCanUsePanel(card.model.canUse);
             }
-            else
+        }
+    }
+    public void SetCanUsePanelHand() // ??��?��??��?��D??��?��̃J??��?��[??��?��h??��?��??��?��??��?��擾??��?��??��?��??��?��āA??��?��g??��?��p??��?��\??��?��ȃJ??��?��[??��?��h??��?��??��?��CanUse??��?��p??��?��l??��?��??��?��??��?��??��?��t??��?��??��?��??��?��??��?��
+    {
+        if(isnotBattleFaiz)
+        {
+            CardController[] playerHandCardList = playerHand.GetComponentsInChildren<CardController>();
+            //CardController[] playerFieldCardList = playerField.GetComponentsInChildren<CardController>();
+            foreach (CardController card in playerHandCardList)
+            {
+                if (card.model.cost <= playerManaPoint)
+                {
+                    card.model.canUse = true;
+                    card.view.SetCanUsePanel(card.model.canUse);
+                }
+                else
+                {
+                    card.model.canUse = false;
+                    card.view.SetCanUsePanel(card.model.canUse);
+                }
+            }
+        }
+    }
+
+    public void ReSetCanUsePanelHand() // ??��?��??��?��D??��?��̃J??��?��[??��?��h??��?��??��?��??��?��擾??��?��??��?��??��?��āA??��?��g??��?��p??��?��s??��?��\??��?��ȃJ??��?��[??��?��h??��?��ɂ�??��?��??��?��
+    {
+        if(isnotBattleFaiz)
+        {
+            CardController[] playerHandCardList = playerHand.GetComponentsInChildren<CardController>();
+            foreach (CardController card in playerHandCardList)
             {
                 card.model.canUse = false;
                 card.view.SetCanUsePanel(card.model.canUse);
@@ -477,22 +492,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void ReSetCanUsePanelHand() // ??��?��??��?��D??��?��̃J??��?��[??��?��h??��?��??��?��??��?��擾??��?��??��?��??��?��āA??��?��g??��?��p??��?��s??��?��\??��?��ȃJ??��?��[??��?��h??��?��ɂ�??��?��??��?��
-    {
-        CardController[] playerHandCardList = playerHand.GetComponentsInChildren<CardController>();
-        foreach (CardController card in playerHandCardList)
-        {
-            card.model.canUse = false;
-            card.view.SetCanUsePanel(card.model.canUse);
-        }
-    }
-
     IEnumerator EnemyTurn() // StartCoroutine??��?��ŌĂ΂ꂽ??��?��̂ŁAIEnumerator??��?��ɕύX
     {
-        PanelOff();
         cover.SetActive(true);
         TrunCount = TrunCount + 1;
-        isFileder = false;
 
         if (EBaff != 0)
         {
@@ -585,6 +588,7 @@ public class GameManager : MonoBehaviour
         }
         attackCard.model.canAttack = false;
     }
+
     void SetAttackableFieldCard(CardController[] cardList, bool canAttack)
     {
         foreach (CardController card in cardList)
@@ -718,7 +722,10 @@ public class GameManager : MonoBehaviour
         CardController[] ACC = playerField.GetComponentsInChildren<CardController>();
         foreach (CardController card in ACC)
         {
-            card.view.SetAap(true);
+            if(card.model.cardId != 1)
+            {
+                card.view.SetAap(true);
+            }
         }
     }
     public void ShowLeaderHP()
@@ -738,17 +745,25 @@ public class GameManager : MonoBehaviour
     }
     public void PanelOn()
     {
-        _gridLayoutGroup = useField.GetComponent<GridLayoutGroup>();
-        _gridLayoutGroup.enabled = true;
-        useField.SetActive(true);
-        useField.transform.SetSiblingIndex(4);
+        if(isnotBattleFaiz)
+        {
+            isFileder = true;
+            _gridLayoutGroup = useField.GetComponent<GridLayoutGroup>();
+            _gridLayoutGroup.enabled = true;
+            useField.SetActive(true);
+            useField.transform.SetSiblingIndex(4);
+        }
     }
     public void PanelOff()
     {
-        useField.SetActive(false);
-        _gridLayoutGroup = useField.GetComponent<GridLayoutGroup>();
-        _gridLayoutGroup.enabled = false;
-        useField.transform.SetAsFirstSibling();
+        if(isnotBattleFaiz)
+        {
+            isFileder = false;
+            useField.SetActive(false);
+            _gridLayoutGroup = useField.GetComponent<GridLayoutGroup>();
+            _gridLayoutGroup.enabled = false;
+            useField.transform.SetAsFirstSibling();
+        }
     }
     public void ChangeBaff(int Baff)
     {
@@ -862,8 +877,8 @@ public class GameManager : MonoBehaviour
         }
         SetCanUsePanelHand();
 
-        int n =0;
-        while (n < deck.Count + 1)
+        int n = 0;
+        while (n < deck.Count)
         {
             if(deck[n] == ID)
             {
@@ -873,7 +888,8 @@ public class GameManager : MonoBehaviour
             n++;
         }
     }
-    public void CosshonJ(int ID){
+    public void CosshonJ(int ID)
+    {
         CardController card = Instantiate(cardPrefab, playerField);
         card.SpornCard(ID,true);
 
@@ -897,6 +913,7 @@ public class GameManager : MonoBehaviour
             n++;
         }
     }
+
     public void AppOffer()
     {
         CardController[] ACC = playerField.GetComponentsInChildren<CardController>();

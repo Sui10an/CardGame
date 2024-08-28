@@ -7,7 +7,6 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] GameObject changeTurnPanel,changePhasePanel;
     [SerializeField] Text changeTurnText;
-    
 
     public IEnumerator ShowChangeTurnPanel()
     {
@@ -17,7 +16,7 @@ public class UIManager : MonoBehaviour
         {
             if (GameManager.instance.isnotBattleFaiz == false)
             {
-                changeTurnText.text = "Battle Faiz";
+                changeTurnText.text = "Battle Phase";
             }
             else
             {
@@ -38,6 +37,7 @@ public class UIManager : MonoBehaviour
     {
         changePhasePanel.SetActive(true);
     }
+
     public void Stoper()
     {
         changePhasePanel.SetActive(false);

@@ -102,6 +102,7 @@ public class CardController : MonoBehaviour
         {
             int CardID = card.model.cardId;
             GameManager.instance.CosshonJ(CardID);
+            GameManager.instance.JS = false;
         }
         if(GameManager.instance.CPC == true)
         {
