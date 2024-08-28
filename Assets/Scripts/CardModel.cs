@@ -20,8 +20,6 @@ public class CardModel
     public bool FieldCard = false;
     public bool canAttack = false;
     public bool ManaCard = false;
-    public bool SRuse = false;
-    public bool SRcan = false;
     public CardEntity rootCard;
     public CardEntity changeCard;
     public bool isChange;

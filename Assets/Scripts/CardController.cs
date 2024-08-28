@@ -41,14 +41,6 @@ public class CardController : MonoBehaviour
             view.manas.text = model.mana.ToString();
         }
     }
-    public void SRSporn(int cardID, bool playerCard) // カードを生成した時に呼ばれる関数
-    {
-        model = new CardModel(cardID, playerCard); // カードデータを生成
-        view.Show(model); // 表示
-        model.FieldCard = true;// �t�B�[���h�̃J�[�h�̃t���O�𗧂Ă�
-        model.SRuse = true;
-        model.mana += 10;
-    }
     public void Sle(int cardID, bool playerCard) // カードを生成した時に呼ばれる関数
     {
         model = new CardModel(cardID, playerCard); // カードデータを生成
@@ -66,14 +58,7 @@ public class CardController : MonoBehaviour
     {
         GameManager.instance.ReduceManaPoint(model.cost);
         GameManager.instance.CardEffect(model.cardId);
-        model.FieldCard = true; // �t�B�[���h�̃J�[�h�̃t���O�𗧂Ă�
-        model.canUse = false;
-        if (model.cardId == 1)
-        {
-            model.SRuse = true;
-        }
-        view.SetCanUsePanel(model.canUse); // �o��������CanUsePanel������
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
     public void BomberF()
     {

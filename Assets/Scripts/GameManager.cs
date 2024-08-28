@@ -608,9 +608,8 @@ public class GameManager : MonoBehaviour
         }
         foreach (CardController card in cardList)
         {
-            if (card.model.cardId == 1)
+            if (card.model.cardId == 1 && card.model.changeCount < card.model.canChangeCount)
             {
-                card.model.SRcan = true;
                 card.view.ChangeSR(true);
             }
         }

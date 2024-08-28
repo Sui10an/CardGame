@@ -22,3 +22,4 @@ MonoBehaviour:
   manapluspuls: 0
   icon: {fileID: 0}
   changeCard: {fileID: 11400000, guid: 940ef7449303b16488bd950fa1ee5c0f, type: 2}
+  canChangeCount: 1
