@@ -11,9 +11,9 @@ public class CardModel
     public int power;
     public Sprite icon;
     public int mana;
-    public int needmana;
-    public int manaplus;
-    public int manapluspuls;
+    public int needMana;
+    public int manaPlus;
+    public int manaPlusPlus;
 
     public bool canUse = false;
     public bool PlayerCard = false;
@@ -25,6 +25,10 @@ public class CardModel
     public bool isChange;
     public int changeCount;
     public int canChangeCount;
+    public int canUseCount;
+    public int useCount;
+    public bool isKakumaga;
+    public bool isSuko;
 
     public CardModel(int cardID, bool playerCard) // �f�[�^���󂯎��A���̏���
     {
@@ -41,12 +45,13 @@ public class CardModel
         power = cardEntity.power;
         icon = cardEntity.icon;
         mana = cardEntity.mana;
-        needmana = cardEntity.needmana;
-        manaplus = cardEntity.manaplus ;
-        manapluspuls = cardEntity.manapluspuls;
+        needMana = cardEntity.needmana;
+        manaPlus = cardEntity.manaplus;
+        manaPlusPlus = cardEntity.manapluspuls;
         PlayerCard = playerCard;
         rootCard = cardEntity;
         changeCard = cardEntity.changeCard;
         canChangeCount = cardEntity.canChangeCount;
+        canUseCount = cardEntity.canUseCount;
     }
 }

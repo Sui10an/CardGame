@@ -20,6 +20,7 @@ MonoBehaviour:
   needmana: 0
   manaplus: 0
   manapluspuls: 0
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 12a9aa78e00bb8a45820047de1f2f0f5, type: 3}
   changeCard: {fileID: 11400000, guid: 940ef7449303b16488bd950fa1ee5c0f, type: 2}
   canChangeCount: 1
+  canUseCount: 1

@@ -17,4 +17,5 @@ public class CardEntity : ScriptableObject
     public Sprite icon;
     public CardEntity changeCard;
     public int canChangeCount;
+    public int canUseCount;
 }

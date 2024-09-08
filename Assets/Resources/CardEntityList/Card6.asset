@@ -15,7 +15,12 @@ MonoBehaviour:
   cardId: 6
   name: "\u7206\u5F3E"
   cost: 0
-  power: 100
+  power: 0
   mana: 0
   needmana: 0
-  icon: {fileID: 0}
+  manaplus: 0
+  manapluspuls: 0
+  icon: {fileID: 21300000, guid: a9d7aed2298005e4981eef9f683f9e50, type: 3}
+  changeCard: {fileID: 0}
+  canChangeCount: 0
+  canUseCount: 0

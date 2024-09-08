@@ -10,7 +10,7 @@ public class CardView : MonoBehaviour
     [SerializeField] public TextMeshProUGUI manas;
     [SerializeField] Image iconImage;
     [SerializeField] GameObject canAttackPanel, canUsePanel, changeSrPanel, changeSrButton, selectPanel, Aap;
-    [SerializeField] GameObject manaCost, attackCost,manaPanel;
+    [SerializeField] GameObject manaCost, attackCost, manaPanel, breakPanel;
 
     public void Show(CardModel cardModel) // cardModelのデータ取得と反映
     {
@@ -20,7 +20,7 @@ public class CardView : MonoBehaviour
         iconImage.sprite = cardModel.icon;
         costText.text = cardModel.cost.ToString();
         manas.text = cardModel.mana.ToString();
-        attackText.text = cardModel.needmana.ToString();
+        attackText.text = cardModel.needMana.ToString();
         if (0 < cardModel.cardId && cardModel.cardId < 5)
         {
             attackCost.SetActive(true);
@@ -57,5 +57,9 @@ public class CardView : MonoBehaviour
     public void SetAap(bool flag)
     {
         Aap.SetActive(flag);
+    }
+    public void SetBreakPanel(bool flag)
+    {
+        breakPanel.SetActive(flag);
     }
 }

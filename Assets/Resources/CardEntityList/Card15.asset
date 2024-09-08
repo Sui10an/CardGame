@@ -18,4 +18,9 @@ MonoBehaviour:
   power: 0
   mana: 0
   needmana: 0
-  icon: {fileID: 0}
+  manaplus: 0
+  manapluspuls: 0
+  icon: {fileID: 21300000, guid: 8a71556601ddad9449a4beb70f623952, type: 3}
+  changeCard: {fileID: 0}
+  canChangeCount: 0
+  canUseCount: 0

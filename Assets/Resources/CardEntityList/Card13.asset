@@ -14,8 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: 13
   name: "\u5075\u5BDF\u968A"
-  cost: 0
+  cost: 2
   power: 0
   mana: 0
   needmana: 0
-  icon: {fileID: 0}
+  manaplus: 0
+  manapluspuls: 0
+  icon: {fileID: 21300000, guid: cb260cbe6f00b1d439c2659714be13f9, type: 3}
+  changeCard: {fileID: 0}
+  canChangeCount: 0
+  canUseCount: 0

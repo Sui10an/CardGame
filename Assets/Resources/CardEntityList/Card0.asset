@@ -13,9 +13,14 @@ MonoBehaviour:
   m_Name: Card0
   m_EditorClassIdentifier: 
   cardId: 0
-  name: Mana
+  name: Bullet
   cost: 1
   power: 0
   mana: 0
   needmana: 0
-  icon: {fileID: 0}
+  manaplus: 0
+  manapluspuls: 0
+  icon: {fileID: 21300000, guid: 05ab95ecbe356ae41b29a7d1bfccfcbe, type: 3}
+  changeCard: {fileID: 0}
+  canChangeCount: 0
+  canUseCount: 0

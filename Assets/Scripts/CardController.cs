@@ -19,14 +19,21 @@ public class CardController : MonoBehaviour
         model = new CardModel(cardID, playerCard); // カードデータを生成
         view.Show(model); // 表示
     }
-    public void ManaSporn(int cardID, bool playerCard) // カードを生成した時に呼ばれる関数
+    public void ManaSpawn(bool isManaPlus) // カードを生成した時に呼ばれる関数
     {
-        model = new CardModel(cardID, playerCard); // カードデータを生成
+        model = new CardModel(0, true); // カードデータを生成
         view.Show(model); // 表示
-        model.FieldCard = true; // �t�B�[���h�̃J�[�h�̃t���O�𗧂Ă�
-        model.ManaCard = true;
+        if(!isManaPlus)
+        {
+            model.FieldCard = true; // �t�B�[���h�̃J�[�h�̃t���O�𗧂Ă�
+            model.ManaCard = true;
+        }else
+        {
+            model.FieldCard = true;
+            view.SetBreakPanel(true);
+        }
     }
-    public void SpornCard(int cardID, bool playerCard) // カードを生成した時に呼ばれる関数
+    public void SpawnCard(int cardID, bool playerCard) // カードを生成した時に呼ばれる関数
     {
         model = new CardModel(cardID, playerCard); // カードデータを生成
         view.Show(model); // 表示
@@ -41,6 +48,7 @@ public class CardController : MonoBehaviour
             view.manas.text = model.mana.ToString();
         }
     }
+
     public void Sle(int cardID, bool playerCard) // カードを生成した時に呼ばれる関数
     {
         model = new CardModel(cardID, playerCard); // カードデータを生成
@@ -57,18 +65,27 @@ public class CardController : MonoBehaviour
     public void DropField()
     {
         GameManager.instance.ReduceManaPoint(model.cost);
-        GameManager.instance.CardEffect(model.cardId);
         Destroy(gameObject);
+        GameManager.instance.CardEffectStart(model.cardId);
+        //StartCoroutine(GameManager.instance.CardEffect(model.cardId));
     }
-    public void BomberF()
+
+    public void BomStart()
     {
-        GameManager.instance.PanelOn();
+        StartCoroutine(BomberF());
+    }
+    public IEnumerator BomberF()
+    {
         GameObject enemyField = transform.parent.gameObject;
         CardController[] cardList = enemyField.GetComponentsInChildren<CardController>();
-        foreach(CardController Ecard in cardList)
+        foreach(CardController ECard in cardList)
         {
-            Ecard.view.SetBomPanel(false);
+            ECard.view.SetBomPanel(false);
         }
+        yield return StartCoroutine(BreakCard());
+        GameManager.instance.Lock = false;
+        GameManager.instance.PanelOn();
+        GameManager.instance.SetCanUsePanelHand();
     }
     public void GunChange()//スナイパーライフルorピストルに変化。カードのSRChangeButtonから発動
     {
@@ -90,32 +107,59 @@ public class CardController : MonoBehaviour
             view.Show(model);
         }
     }
+
+    public IEnumerator BreakCard()
+    {
+        for(int i = 0; i < 2; i++)
+        {
+            view.SetBreakPanel(true);
+            yield return new WaitForSeconds(0.1f);
+            view.SetBreakPanel(false);
+            yield return new WaitForSeconds(0.1f);
+        }
+        for(int i = 0; i < 2; i++)
+        {
+            view.SetBreakPanel(true);
+            yield return new WaitForSeconds(0.05f);
+            view.SetBreakPanel(false);
+            yield return new WaitForSeconds(0.05f);
+        }
+        Destroy(gameObject);
+    }
+
     public void SelectEffect(CardController card)
     {
         if(GameManager.instance.KP == true)
         {
             int CardID = card.model.cardId;
+            GameManager.instance.Lock = false;
             GameManager.instance.CosshonK(CardID);
-            GameManager.instance.KP = false;
         }
         if(GameManager.instance.JS == true)
         {
             int CardID = card.model.cardId;
+            GameManager.instance.Lock = false;
             GameManager.instance.CosshonJ(CardID);
-            GameManager.instance.JS = false;
         }
         if(GameManager.instance.CPC == true)
         {
             card.model.power += 1;
+            card.model.isSuko = true;
             GameManager.instance.CPC = false;
-            GameManager.instance.Shuffle();
             GameManager.instance.AppOffer();
+            GameManager.instance.Lock = false;
+            GameManager.instance.PanelOn();
+            GameManager.instance.SetCanUsePanelHand();
         }
         if (GameManager.instance.CMC == true)
         {
-            card.model.manapluspuls += 1;
+            card.model.manaPlusPlus += 1;
+            card.model.isKakumaga = true;
             GameManager.instance.CMC = false;
             GameManager.instance.AppOffer();
+            GameManager.instance.Lock = false;
+            GameManager.instance.PanelOn();
+            GameManager.instance.SetCanUsePanelHand();
         }
     }
 }
