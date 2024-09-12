@@ -403,7 +403,10 @@ public class GameManager : MonoBehaviour
             Bom = true;
             foreach(CardController card in enemyGuns)
             {
-                card.view.SetBomPanel(Bom);
+                if(card.model.cardId >= 2 && card.model.cardId < 5)
+                {
+                    card.view.SetBomPanel(Bom);
+                }
             }
         }
         if(cardId == 7) //回復
@@ -1064,7 +1067,15 @@ public class GameManager : MonoBehaviour
         {
             if(card.model.cardId == 6)
             {
-                if(hands.Count == 1)
+                bool itokawaJoshin = true;
+                foreach(CardController enemyGun in enemyGuns)
+                {
+                    if(enemyGun.model.cardId != 1)
+                    {
+                        itokawaJoshin = false;
+                    }
+                }
+                if(hands.Count < 2 || itokawaJoshin)
                 {
                     card.model.canUse = false;
                     card.view.SetCanUsePanel(card.model.canUse);

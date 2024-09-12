@@ -52,10 +52,13 @@ public class UIManager : MonoBehaviour
         changeTurnPanelImage.color = new Color(1f, 1f, 1f, 1f);
         changeTurnPanel.SetActive(true);
         yield return new WaitForSeconds(1.5f);
-        while(changeTurnPanelImage.color.a > 0)
+        while(changeTurnPanelImage.color.r > 0)
         {
             Color color = changeTurnPanelImage.color;
-            color.a -= speed/255f;
+            color.r -= speed/255f;
+            color.g -= speed/255f;
+            color.b -= speed/255f;
+            //color.a -= speed/255f;
             changeTurnPanelImage.color = color;
             yield return null;
         }

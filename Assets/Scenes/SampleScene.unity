@@ -2280,7 +2280,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ReStart
+  m_text: Restart
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e6c01dc97fe38be4e9b914fbe0887332, type: 2}
   m_sharedMaterial: {fileID: -8036207117204017607, guid: e6c01dc97fe38be4e9b914fbe0887332, type: 2}
@@ -2990,7 +2990,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ReStart
+  m_text: Restart
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e6c01dc97fe38be4e9b914fbe0887332, type: 2}
   m_sharedMaterial: {fileID: -8036207117204017607, guid: e6c01dc97fe38be4e9b914fbe0887332, type: 2}
@@ -3529,7 +3529,7 @@ GameObject:
   - component: {fileID: 1094355196}
   - component: {fileID: 1094355195}
   m_Layer: 5
-  m_Name: ReStart
+  m_Name: Restart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3837,7 +3837,7 @@ GameObject:
   - component: {fileID: 1180795735}
   - component: {fileID: 1180795734}
   m_Layer: 5
-  m_Name: ReStart
+  m_Name: Restart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
