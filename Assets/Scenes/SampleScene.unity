@@ -951,7 +951,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "HP\u30925\u306B\u3059\u308B"
+  m_text: "\u81EA\u5BB3"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e6c01dc97fe38be4e9b914fbe0887332, type: 2}
   m_sharedMaterial: {fileID: -8036207117204017607, guid: e6c01dc97fe38be4e9b914fbe0887332, type: 2}
@@ -960,8 +960,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190335
+  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -978,7 +978,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 34.5
+  m_fontSize: 69.05
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1655,6 +1655,10 @@ MonoBehaviour:
   playerHurts: 0
   enemyHurts: 0
   isBeginMatch: 0
+  hands: []
+  manas: []
+  playerGuns: []
+  enemyGuns: []
   playerLeaderHP: 10
   enemyLeaderHP: 10
 --- !u!4 &526364299
@@ -1885,7 +1889,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -150, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &615292932
 MonoBehaviour:
@@ -5064,7 +5068,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 150, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1501619705
 MonoBehaviour:
@@ -5763,7 +5767,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1683826867
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5840,7 +5844,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
 --- !u!114 &1683826869
 MonoBehaviour:
   m_ObjectHideFlags: 0

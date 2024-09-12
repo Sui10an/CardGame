@@ -18,6 +18,7 @@ public class CardController : MonoBehaviour
     {
         model = new CardModel(cardID, playerCard); // カードデータを生成
         view.Show(model); // 表示
+        model.kinds = CardModel.Kinds.hand;
     }
     public void ManaSpawn(bool isManaPlus) // カードを生成した時に呼ばれる関数
     {
@@ -25,11 +26,10 @@ public class CardController : MonoBehaviour
         view.Show(model); // 表示
         if(!isManaPlus)
         {
-            model.FieldCard = true; // �t�B�[���h�̃J�[�h�̃t���O�𗧂Ă�
-            model.ManaCard = true;
+            model.kinds = CardModel.Kinds.mana;
         }else
         {
-            model.FieldCard = true;
+            model.kinds = CardModel.Kinds.manaPlus;
             view.SetBreakPanel(true);
         }
     }
@@ -37,15 +37,24 @@ public class CardController : MonoBehaviour
     {
         model = new CardModel(cardID, playerCard); // カードデータを生成
         view.Show(model); // 表示
-        model.FieldCard = true; // �t�B�[���h�̃J�[�h�̃t���O�𗧂Ă�
-        view.SetManaPanel(true);
-        if(GameManager.instance.JS == true && GameManager.instance.playerManaPoint >0)
+        if(playerCard)
         {
-            model.mana += 1;
-            GameManager.instance.playerManaPoint -= 1;
+            model.kinds = CardModel.Kinds.playerGun;
+        }else
+        {
+            model.kinds = CardModel.Kinds.enemyGun;
+        }
+        view.SetManaPanel(true);
+        if(GameManager.instance.JS == true)
+        {
             GameManager.instance.JS = false;
-            GameManager.instance.SetManaCard();
-            view.manas.text = model.mana.ToString();
+            if(GameManager.instance.playerManaPoint >0)
+            {
+                model.mana += 1;
+                GameManager.instance.playerManaPoint -= 1;
+                GameManager.instance.SetManaCard();
+                view.manas.text = model.mana.ToString();
+            }
         }
     }
 
@@ -55,17 +64,39 @@ public class CardController : MonoBehaviour
         view.Show(model); // 表示
         view.SetCanUsePanel(true);
         view.SetAap(true);
+        model.kinds = CardModel.Kinds.other;
     }
 
-    public void DestroyCard(CardController card)
+    public void DestroyCard()
     {
-        Destroy(card.gameObject);
+        if(model.kinds == CardModel.Kinds.hand)
+        {
+            GameManager.instance.hands.Remove(this);
+        }else
+        if(model.kinds == CardModel.Kinds.mana)
+        {
+            GameManager.instance.manas.Remove(this);
+        }else
+        if(model.kinds == CardModel.Kinds.manaPlus)
+        {
+            GameManager.instance.manas.Remove(this);
+        }else
+        if(model.kinds == CardModel.Kinds.playerGun)
+        {
+            GameManager.instance.playerGuns.Remove(this);
+        }else
+        if(model.kinds == CardModel.Kinds.enemyGun)
+        {
+            GameManager.instance.enemyGuns.Remove(this);
+        }
+        Destroy(gameObject);
     }
 
     public void DropField()
     {
         GameManager.instance.ReduceManaPoint(model.cost);
-        Destroy(gameObject);
+        DestroyCard();
+        Debug.Log(model.kinds);
         GameManager.instance.CardEffectStart(model.cardId);
         //StartCoroutine(GameManager.instance.CardEffect(model.cardId));
     }
@@ -76,9 +107,7 @@ public class CardController : MonoBehaviour
     }
     public IEnumerator BomberF()
     {
-        GameObject enemyField = transform.parent.gameObject;
-        CardController[] cardList = enemyField.GetComponentsInChildren<CardController>();
-        foreach(CardController ECard in cardList)
+        foreach(CardController ECard in GameManager.instance.enemyGuns)
         {
             ECard.view.SetBomPanel(false);
         }
@@ -124,7 +153,7 @@ public class CardController : MonoBehaviour
             view.SetBreakPanel(false);
             yield return new WaitForSeconds(0.05f);
         }
-        Destroy(gameObject);
+        DestroyCard();
     }
 
     public void SelectEffect(CardController card)

@@ -38,6 +38,7 @@ public class CardView : MonoBehaviour
 
     public void SetCanUsePanel(bool flag) // �t���O�ɍ��킹��CanUsePanel��t����or����
     {
+        Debug.Log(flag);
         canUsePanel.SetActive(flag);
     }
     public void SetManaPanel(bool flag)

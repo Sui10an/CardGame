@@ -8,26 +8,33 @@ public class CardMovement : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
 {
     public Transform cardParent;
     //public Transform carryCard;
-    bool canDrag = true; /// �y����@�z�J�[�h�𓮂����邩�ǂ����̃t���O
+    public bool canDrag = true; /// �y����@�z�J�[�h�𓮂����邩�ǂ����̃t���O
 
     public void OnBeginDrag(PointerEventData eventData) // �h���b�O���n�߂�Ƃ��ɍs������
     {
 
         CardController card = GetComponent<CardController>();
-        canDrag = true;
+        canDrag = false;
 
-        if (card.model.FieldCard == false) // ��D�̃J�[�h�Ȃ�
+        if (card.model.kinds == CardModel.Kinds.hand) // ��D�̃J�[�h�Ȃ�
         {
-            if (card.model.canUse == false) // �}�i�R�X�g��菭�Ȃ��J�[�h�͓������Ȃ�
+            if (card.model.canUse == true) // �}�i�R�X�g��菭�Ȃ��J�[�h�͓������Ȃ�
             {
-                canDrag = false;
+                canDrag = true;
             }
-        }
-        else
+        }else
+        if(card.model.kinds == CardModel.Kinds.mana)
         {
-            if (card.model.canAttack == false) // �U���s�\�ȃJ�[�h�͓������Ȃ�
+            if (card.model.canAttack == true && card.model.canUse) // �U���s�\�ȃJ�[�h�͓������Ȃ�
             {
-                canDrag = false;
+                canDrag = true;
+            }
+        }else
+        if(card.model.kinds == CardModel.Kinds.playerGun)
+        {
+            if (card.model.canAttack == true) // �U���s�\�ȃJ�[�h�͓������Ȃ�
+            {
+                canDrag = true;
             }
         }
 

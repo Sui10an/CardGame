@@ -3,20 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-// UŒ‚‚³‚ê‚é‘¤‚ÌƒR[ƒh
+// ï¿½Uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é‘¤ï¿½ÌƒRï¿½[ï¿½h
 public class AttackedCard : MonoBehaviour, IDropHandler
 {
     public void OnDrop(PointerEventData eventData)
     {
-        /// UŒ‚
-        // attacker‚ğ‘I‘ğ@ƒ}ƒEƒXƒ|ƒCƒ“ƒ^[‚Éd‚È‚Á‚½ƒJ[ƒh‚ğƒAƒ^ƒbƒJ[‚É‚·‚é
+        /// ï¿½Uï¿½ï¿½
+        // attackerï¿½ï¿½Iï¿½ï¿½ï¿½@ï¿½}ï¿½Eï¿½Xï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½[ï¿½Édï¿½È‚ï¿½ï¿½ï¿½ï¿½Jï¿½[ï¿½hï¿½ï¿½ï¿½Aï¿½^ï¿½bï¿½Jï¿½[ï¿½É‚ï¿½ï¿½ï¿½
         CardController attackCard = eventData.pointerDrag.GetComponent<CardController>();
 
-        // defender‚ğ‘I‘ğ@
-        CardController defenceCard = GetComponent<CardController>();
+        // defenderï¿½ï¿½Iï¿½ï¿½ï¿½@
+        CardController defenseCard = GetComponent<CardController>();
 
-        // ƒoƒgƒ‹‚·‚é
-        GameManager.instance.CardBattle(attackCard, defenceCard);
-
+        // ï¿½oï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        if(attackCard != null)
+        {
+            if(attackCard.gameObject.GetComponent<CardMovement>().canDrag)
+            {
+                GameManager.instance.CardBattle(attackCard, defenseCard);
+            }
+        }
     }
 }

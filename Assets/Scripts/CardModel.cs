@@ -17,9 +17,7 @@ public class CardModel
 
     public bool canUse = false;
     public bool PlayerCard = false;
-    public bool FieldCard = false;
     public bool canAttack = false;
-    public bool ManaCard = false;
     public CardEntity rootCard;
     public CardEntity changeCard;
     public bool isChange;
@@ -29,6 +27,17 @@ public class CardModel
     public int useCount;
     public bool isKakumaga;
     public bool isSuko;
+    public Kinds kinds = Kinds.other;
+    public enum Kinds
+    {
+        hand,
+        mana,
+        manaPlus,
+        playerGun,
+        enemyGun,
+        other
+
+    }
 
     public CardModel(int cardID, bool playerCard) // �f�[�^���󂯎��A���̏���
     {

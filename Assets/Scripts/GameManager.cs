@@ -5,8 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
-using UnityEngineInternal;
-using Unity.VisualScripting;
+using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
@@ -44,6 +43,7 @@ public class GameManager : MonoBehaviour
     public bool Lock;
     public int playerHurts, enemyHurts;
     public bool isBeginMatch;
+    public List<CardController> hands, manas, playerGuns, enemyGuns;
     List<int> deck = new List<int>{2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13,14,14,15,15};  //
 
     public static GameManager instance;
@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
         enemyBlockHP = 0;
         ShowLeaderHP();
         playerManaPoint = 0;
+        playerManaPlus = 0;
         playerDefaultManaPoint = 6;
         ShowManaPoint();
 
@@ -101,29 +102,28 @@ public class GameManager : MonoBehaviour
         cover.SetActive(false);
 
         //�?�?キのシャ�?フル
+        for(int i = hands.Count - 1; i >= 0; i--)
+        {
+            hands[i].DestroyCard();
+        }
+        for(int i = manas.Count - 1; i >= 0; i--)
+        {
+            manas[i].DestroyCard();
+        }
+        for(int i = playerGuns.Count - 1; i >= 0; i--)
+        {
+            playerGuns[i].DestroyCard();
+        }
+        for(int i = enemyGuns.Count - 1; i >= 0; i--)
+        {
+            enemyGuns[i].DestroyCard();
+        }
+        hands.Clear();
+        manas.Clear();
+        playerGuns.Clear();
+        enemyGuns.Clear();
         deck = new List<int>{2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13,14,14,15,15};
         Shuffle();
-
-        CardController[] playerHandCardList = playerHand.GetComponentsInChildren<CardController>();
-        foreach(CardController card in playerHandCardList)
-        {
-            Destroy(card.gameObject);
-        }
-        CardController[] playerManaFieldCardList = playerManaField.GetComponentsInChildren<CardController>();
-        foreach(CardController card in playerManaFieldCardList)
-        {
-            Destroy(card.gameObject);
-        }
-        CardController[] playerFieldCardList = playerField.GetComponentsInChildren<CardController>();
-        foreach(CardController card in playerFieldCardList)
-        {
-            Destroy(card.gameObject);
-        }
-        CardController[] enemyFieldCardList = enemyField.GetComponentsInChildren<CardController>();
-        foreach(CardController card in enemyFieldCardList)
-        {
-            Destroy(card.gameObject);
-        }
     }
 
     IEnumerator GameStart() // 初期値の設�?
@@ -175,7 +175,6 @@ public class GameManager : MonoBehaviour
     {
         playerManaPointText.text = playerManaPoint.ToString();
         playerDefaultManaPointText.text = playerDefaultManaPoint.ToString();
-        //??��?��}??��?��i??��?��J??��?��[??��?��h??��?��??��?��??��?��??��?��??��?��
         SetManaCard();
     }
 
@@ -186,18 +185,22 @@ public class GameManager : MonoBehaviour
         if (place == playerHand)
         {
             card.Init(cardID, true);
+            hands.Add(card);
         }else
         if(place == playerField)
         {
             card.SpawnCard(cardID, true);
+            playerGuns.Add(card);
         }else
         {
             card.SpawnCard(cardID, false);
+            enemyGuns.Add(card);
         }
     }
     void CreateMana(Transform place, bool isManaPlus)
     {
         CardController card = Instantiate(cardPrefab, place);
+        manas.Add(card);
         // Player??��?��̎�D??��?��ɐ�??��?��??��?��??��?��??��?��??��?��ꂽ??��?��J??��?��[??��?��h??��?��??��?��Player??��?��̃J??��?��[??��?��h??��?��Ƃ�??��?��??��?��
         if(!isManaPlus)
         {
@@ -219,10 +222,7 @@ public class GameManager : MonoBehaviour
             StartCoroutine(uIManager.Result(false));
             return;
         }
-
-        CardController[] playerHandCardList = playerHand.GetComponentsInChildren<CardController>();
-
-        if (playerHandCardList.Length < 10)
+        if (hands.Count < 10)
         {
             // �?�?キの一番上�?�カードを抜き取り、手札に�?える
             int cardID = deck[0];
@@ -241,10 +241,9 @@ public class GameManager : MonoBehaviour
 
     public void SetManaCard()
     {
-        CardController[] playerManaCardList = playerManaField.GetComponentsInChildren<CardController>();
-        foreach(CardController manas in playerManaCardList)
+        for(int i = manas.Count - 1; i >= 0; i--)
         {
-            Destroy(manas.gameObject);
+            manas[i].DestroyCard();
         }
         for(int i = 0; i < playerManaPoint; i++)
         {
@@ -301,15 +300,14 @@ public class GameManager : MonoBehaviour
         uIManager.Stoper();
         ReSetCanUsePanelHand();
         ReSetCanUsePanelMana();
-        CardController[] playerFieldCardList = playerField.GetComponentsInChildren<CardController>();
-        foreach(CardController gun in playerFieldCardList)
+        foreach(CardController gun in playerGuns)
         {
             if(gun.model.isChange)
             {
                 gun.GunChange();
             }
         }
-        SetAttackAbleFieldCard(playerFieldCardList, false);
+        SetAttackAbleFieldCard(playerGuns.ToArray(), false);
         StartCoroutine(TurnCalc()); // ターンを相手に回す
     }
 
@@ -319,23 +317,18 @@ public class GameManager : MonoBehaviour
         TurnCount = TurnCount + 1;
         Debug.Log("Playerのターン");
         PanelOn();
-        CardController[] playerFieldList = playerField.GetComponentsInChildren<CardController>();
-        foreach(CardController card in playerFieldList)
+        foreach(CardController card in playerGuns)
         {
             card.model.manaPlus = 0;
             card.model.useCount = 0;
         }
 
         /// 弾薬箱の処�?
-        CardController[] manas = playerManaField.GetComponentsInChildren<CardController>();
-        foreach(CardController mana in manas)
+        for(int i = 0; i < playerManaPlus; i++)
         {
-            if(!mana.model.ManaCard)
-            {
-                mana.model.ManaCard = true;
-                mana.view.SetBreakPanel(false);
-            }
+            playerManaPoint++;
         }
+        playerManaPlus = 0;
 
         AddMana(1);
         ShowManaPoint();
@@ -378,8 +371,7 @@ public class GameManager : MonoBehaviour
             PanelOff();
             isNotBattlePhase = false;
             StartCoroutine(TurnCalc());
-            CardController[] playerFieldCardList = playerField.GetComponentsInChildren<CardController>();
-            SetAttackAbleFieldCard(playerFieldCardList, true);
+            SetAttackAbleFieldCard(playerGuns.ToArray(), true);
         }
     }
 
@@ -387,7 +379,6 @@ public class GameManager : MonoBehaviour
     {
         playerManaPoint -= cost;
         ShowManaPoint();
-
         SetCanUsePanelHand();
     }
     public IEnumerator CardEffect(int cardId) // カード�?�効果表
@@ -406,13 +397,11 @@ public class GameManager : MonoBehaviour
             PanelOff();
             ReSetCanUsePanelHand();
             Lock = true;
-            CardController[] handList = playerHand.GetComponentsInChildren<CardController>();
-            int Count = UnityEngine.Random.Range(0, handList.Length);
-            CardController card1 = handList[Count];
+            int Count = UnityEngine.Random.Range(0, hands.Count);
+            CardController card1 = hands[Count];
             yield return StartCoroutine(card1.BreakCard());
-            CardController[] cardList = enemyField.GetComponentsInChildren<CardController>();
             Bom = true;
-            foreach(CardController card in cardList)
+            foreach(CardController card in enemyGuns)
             {
                 card.view.SetBomPanel(Bom);
             }
@@ -511,36 +500,37 @@ public class GameManager : MonoBehaviour
     {
         if(!Lock && isNotBattlePhase)
         {
-            CardController[] guns = playerField.GetComponentsInChildren<CardController>();
             bool itokawaJoshin = false;
-            foreach(CardController gun in guns)
+            foreach(CardController gun in playerGuns)
             {
                 if(gun.model.needMana > 0 && gun.model.manaPlus <= gun.model.manaPlusPlus)
                 {
                     itokawaJoshin = true;
                 }
             }
+            Debug.Log(manas.Count);
+            Debug.Log(itokawaJoshin);
             if(itokawaJoshin)
             {
-                CardController[] playerManaCardList = playerManaField.GetComponentsInChildren<CardController>();
-                foreach (CardController card in playerManaCardList)
+                foreach (CardController card in manas)
                 {
-                    if(card.model.ManaCard)
+                    if(card.model.kinds == CardModel.Kinds.mana)
                     {
                         card.model.canUse = true;
                         card.model.canAttack = true;
-                        card.view.SetCanUsePanel(card.model.canUse);
+                        card.view.SetCanUsePanel(true);
                     }
                 }
+                Debug.Log("very good!");
             }else
             {
-                CardController[] playerManaCardList = playerManaField.GetComponentsInChildren<CardController>();
-                foreach (CardController card in playerManaCardList)
+                foreach (CardController card in manas)
                 {
                     card.model.canUse = false;
                     card.model.canAttack = false;
-                    card.view.SetCanUsePanel(card.model.canUse);
+                    card.view.SetCanUsePanel(false);
                 }
+                Debug.Log("little bad!");
             }
         }
     }
@@ -549,8 +539,7 @@ public class GameManager : MonoBehaviour
     {
         if(!Lock)
         {
-            CardController[] playerManaCardList = playerManaField.GetComponentsInChildren<CardController>();
-            foreach (CardController card in playerManaCardList)
+            foreach (CardController card in manas)
             {
                 card.model.canUse = false;
                 card.model.canAttack = false;
@@ -562,9 +551,8 @@ public class GameManager : MonoBehaviour
     {
         if(!Lock && isNotBattlePhase)
         {
-            CardController[] playerHandCardList = playerHand.GetComponentsInChildren<CardController>();
             //CardController[] playerFieldCardList = playerField.GetComponentsInChildren<CardController>();
-            foreach (CardController card in playerHandCardList)
+            foreach (CardController card in hands)
             {
                 if (card.model.cost <= playerManaPoint)
                 {
@@ -585,8 +573,7 @@ public class GameManager : MonoBehaviour
     {
         if(!Lock)
         {
-            CardController[] playerHandCardList = playerHand.GetComponentsInChildren<CardController>();
-            foreach (CardController card in playerHandCardList)
+            foreach (CardController card in hands)
             {
                 card.model.canUse = false;
                 card.view.SetCanUsePanel(card.model.canUse);
@@ -617,15 +604,14 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Enemyのターン");
 
-        CardController[] enemyFieldCardList = enemyField.GetComponentsInChildren<CardController>();
-        foreach(CardController gun in enemyFieldCardList)
+        foreach(CardController gun in enemyGuns)
         {
             gun.model.useCount = 0;
         }
 
         yield return new WaitForSeconds(1f);
 
-        if (enemyFieldCardList.Length < 3)
+        if (enemyGuns.Count < 3)
         {
             int iD = UnityEngine.Random.Range(2, 5);
             Debug.Log(iD);
@@ -634,10 +620,9 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        CardController[] enemyFieldCardListSecond = enemyField.GetComponentsInChildren<CardController>();
-        for(int EC = 0; EC < enemyFieldCardListSecond.Length; EC++)
+        for(int EC = 0; EC < enemyGuns.Count; EC++)
         {
-            CardController useCard = enemyFieldCardListSecond[EC];
+            CardController useCard = enemyGuns[EC];
             if(useCard.model.needMana != 0)
             {
                 useCard.model.mana += 1;
@@ -647,14 +632,14 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        SetAttackAbleFieldCard(enemyFieldCardListSecond, true);
+        SetAttackAbleFieldCard(enemyGuns.ToArray(), true);
 
         yield return new WaitForSeconds(1f);
 
-        while (Array.Exists(enemyFieldCardListSecond, card => card.model.canAttack))
+        while (Array.Exists(enemyGuns.ToArray(), card => card.model.canAttack))
         {
             // ??��?��U??��?��??��?��??��?��\??��?��J??��?��[??��?��h??��?��??��?��??��?��擾
-            CardController[] enemyCanAttackCardList = Array.FindAll(enemyFieldCardListSecond, card => card.model.canAttack);
+            CardController[] enemyCanAttackCardList = Array.FindAll(enemyGuns.ToArray(), card => card.model.canAttack);
 
             CardController attackCard = enemyCanAttackCardList[0];
 
@@ -668,24 +653,23 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void CardBattle(CardController attackCard, CardController defenceCard)
+    public void CardBattle(CardController attackCard, CardController defenseCard)
     {
-        // ??��?��U??��?��??��?��??��?��J??��?��[??��?��h??��?��ƍU??��?��??��?��??��?��??��?��??��?��??��?��??��?��J??��?��[??��?��h??��?��??��?��??��?��??��?��??��?��??��?��??��?��v??��?��??��?��??��?��C??��?��??��?��??��?��[??��?��̃J??��?��[??��?��h??��?��Ȃ�o??��?��g??��?��??��?��??��?��??��?��??��?��Ȃ�
-        if (attackCard.model.PlayerCard == defenceCard.model.PlayerCard)
+        if (attackCard.model.PlayerCard == defenseCard.model.PlayerCard)
         {
-            if(attackCard.model.ManaCard == true)
+            if(attackCard.model.kinds == CardModel.Kinds.mana)
             {
-                if(defenceCard.model.needMana == 0 || defenceCard.model.manaPlus > defenceCard.model.manaPlusPlus)
+                if(defenseCard.model.needMana == 0 || defenseCard.model.manaPlus > defenseCard.model.manaPlusPlus)
                 {
                     return;
                 }
-                defenceCard.model.mana += 1;
+                defenseCard.model.mana += 1;
                 playerManaPoint -= 1;
-                defenceCard.model.manaPlus += 1;
-                attackCard.DestroyCard(attackCard);
-                SetCanUsePanelMana();
-                ChangeManaText(defenceCard);
+                defenseCard.model.manaPlus += 1;
+                attackCard.DestroyCard();
+                ChangeManaText(defenseCard);
                 ShowManaPoint();
+                SetCanUsePanelMana();
             }
             else
             {
@@ -719,17 +703,23 @@ public class GameManager : MonoBehaviour
     {
         if(playerLeaderHP > 5)
         {
-            return;
-        }
-        CardController[] guns = playerField.GetComponentsInChildren<CardController>();
-        foreach (CardController card in guns)
-        {
-            if (card.model.cardId == 1 && card.model.changeCount < card.model.canChangeCount)
+            foreach(CardController card in playerGuns)
             {
-                card.view.ChangeSR(true);
+                card.view.ChangeSR(false);
+            }
+        }else
+        {
+            foreach (CardController card in playerGuns)
+            {
+                if (card.model.cardId == 1 && card.model.changeCount < card.model.canChangeCount)
+                {
+                    card.view.ChangeSR(true);
+                }else
+                {
+                    card.view.ChangeSR(false);
+                }
             }
         }
-
     }
     public int playerLeaderHP;
     public int enemyLeaderHP;
@@ -789,10 +779,10 @@ public class GameManager : MonoBehaviour
     public void ChangePower()
     {
         CPC = true;
-        CardController[] ACC = playerField.GetComponentsInChildren<CardController>();
-        foreach (CardController card in ACC)
+        foreach (CardController card in playerGuns)
         {
-            if(card.model.cardId == 2){
+            if(card.model.cardId == 2 && !card.model.isSuko)
+            {
                 card.view.SetAap(true);
             }
         }
@@ -800,10 +790,9 @@ public class GameManager : MonoBehaviour
     public void Kakumaga()
     {
         CMC = true;
-        CardController[] ACC = playerField.GetComponentsInChildren<CardController>();
-        foreach (CardController card in ACC)
+        foreach (CardController card in playerGuns)
         {
-            if(card.model.cardId != 1)
+            if(card.model.cardId != 1 && !card.model.isKakumaga)
             {
                 card.view.SetAap(true);
             }
@@ -827,6 +816,7 @@ public class GameManager : MonoBehaviour
         enemyLeaderHPText.text = enemyLeaderHP.ToString();
         pBHP.text = playerBlockHP.ToString();
         eBHP.text = enemyBlockHP.ToString();
+        CheckHP();
     }
     public void PanelOn()
     {
@@ -886,7 +876,6 @@ public class GameManager : MonoBehaviour
                 {
                     if(item >= 5)
                     {
-                        //deck.RemoveAt(item);
                         CardController card = Instantiate(cardPrefab, selectField);
                         card.Sle(item,false);
                         COUNT += 1;
@@ -952,15 +941,14 @@ public class GameManager : MonoBehaviour
     }
     public void CosshonK(int ID)
     {
-        CardController card = Instantiate(cardPrefab, playerHand);
-        card.Init(ID,true);
+        CreateCard(ID, playerHand);
 
         selectUi.SetActive(false);
         CardController[] SelectList = selectField.GetComponentsInChildren<CardController>();
         int SC = SelectList.Length;
         for (int DC = 0; DC != SC; DC++)
         {
-            cardPrefab.DestroyCard(SelectList[DC]);
+            SelectList[DC].DestroyCard();
         }
         SetCanUsePanelHand();
 
@@ -979,15 +967,14 @@ public class GameManager : MonoBehaviour
     }
     public void CosshonJ(int ID)
     {
-        CardController card = Instantiate(cardPrefab, playerField);
-        card.SpawnCard(ID,true);
+        CreateCard(ID, playerField);
 
         selectUi.SetActive(false);
         CardController[] SelectList = selectField.GetComponentsInChildren<CardController>();
         int SC = SelectList.Length;
         for (int DC = 0; DC != SC; DC++)
         {
-            cardPrefab.DestroyCard(SelectList[DC]);
+            SelectList[DC].DestroyCard();
         }
         SetCanUsePanelHand();
 
@@ -1007,8 +994,7 @@ public class GameManager : MonoBehaviour
 
     public void AppOffer()
     {
-        CardController[] ACC = playerField.GetComponentsInChildren<CardController>();
-        foreach (CardController card in ACC)
+        foreach (CardController card in playerGuns)
         {
             card.view.SetAap(false);
         }
@@ -1016,7 +1002,7 @@ public class GameManager : MonoBehaviour
 
     public void ToCanChangeSR()
     {
-        playerLeaderHP = 5;
+        playerLeaderHP = 0;
         CheckHP();
         ShowLeaderHP();
     }
@@ -1032,13 +1018,7 @@ public class GameManager : MonoBehaviour
         {
             if(card.model.cardId == 5)
             {
-                CardController[] manas = playerManaField.GetComponentsInChildren<CardController>();
-                bool itokawaJoshin = false;
-                if(manas.Length >= 5)
-                {
-                    itokawaJoshin = true;
-                }
-                if(itokawaJoshin)
+                if(playerManaPoint + playerManaPlus >= 5)
                 {
                     card.model.canUse = false;
                     card.view.SetCanUsePanel(card.model.canUse);
@@ -1049,9 +1029,8 @@ public class GameManager : MonoBehaviour
         {
             if((0 < card.model.cardId && card.model.cardId <= 4) || card.model.cardId == 12)
             {
-                CardController[] guns = playerField.GetComponentsInChildren<CardController>();
                 bool itokawaJoshin = false;
-                if(guns.Length >= 3)
+                if(playerGuns.Count >= 3)
                 {
                     itokawaJoshin = true;
                 }
@@ -1066,9 +1045,8 @@ public class GameManager : MonoBehaviour
         {
             if(card.model.cardId == 15)
             {
-                CardController[] guns = playerField.GetComponentsInChildren<CardController>();
                 bool itokawaJoshin = true;
-                foreach(CardController gun in guns)
+                foreach(CardController gun in playerGuns)
                 {
                     if(gun.model.cardId == 2 && !gun.model.isSuko)
                     {
@@ -1086,8 +1064,7 @@ public class GameManager : MonoBehaviour
         {
             if(card.model.cardId == 6)
             {
-                CardController[] hands = playerHand.GetComponentsInChildren<CardController>();
-                if(hands.Length == 1)
+                if(hands.Count == 1)
                 {
                     card.model.canUse = false;
                     card.view.SetCanUsePanel(card.model.canUse);
@@ -1098,9 +1075,8 @@ public class GameManager : MonoBehaviour
         {
             if(card.model.cardId == 14)
             {
-                CardController[] guns = playerField.GetComponentsInChildren<CardController>();
                 bool itokawaJoshin = true;
-                foreach(CardController gun in guns)
+                foreach(CardController gun in playerGuns)
                 {
                     if(gun.model.needMana > 0 && !gun.model.isKakumaga)
                     {
