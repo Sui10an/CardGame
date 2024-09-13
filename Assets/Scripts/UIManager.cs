@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] GameObject changeTurnPanel, changePhasePanel, waitStart, win, lose;
+    [SerializeField] GameObject changeTurnPanel, changePhasePanel, waitStart, win, lose, youLose;
     [SerializeField] Image changeTurnPanelImage;
     [SerializeField] Sprite start, yourTurn, enemyTurn, battlePhaseButton, battlePhase;
     public bool isStart;
@@ -101,10 +101,12 @@ public class UIManager : MonoBehaviour
             GameManager.instance.StartStart();
         }else
         {
+            int random = Random.Range(0,100);
+            GameObject itokawaJoshin = random < 99 ? lose : youLose;
             isStart = false;
-            lose.SetActive(true);
+            itokawaJoshin.SetActive(true);
             yield return new WaitUntil(() => isStart);
-            lose.SetActive(false);
+            itokawaJoshin.SetActive(false);
             GameManager.instance.StartStart();
         }
     }

@@ -1107,4 +1107,12 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(CardEffect(cardId));
     }
+
+    private void Update()
+    {
+        //Joshinが同時に押されたら
+        if(Input.GetKey(KeyCode.J) && Input.GetKey(KeyCode.O) && Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.H) && Input.GetKey(KeyCode.I) && Input.GetKey(KeyCode.N))
+        {
+        }
+    }
 }
