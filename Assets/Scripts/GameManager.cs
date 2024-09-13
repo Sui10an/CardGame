@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
-using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
@@ -1108,11 +1107,18 @@ public class GameManager : MonoBehaviour
         StartCoroutine(CardEffect(cardId));
     }
 
+    bool IJ = true;
     private void Update()
     {
         //Joshinが同時に押されたら
-        if(Input.GetKey(KeyCode.J) && Input.GetKey(KeyCode.O) && Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.H) && Input.GetKey(KeyCode.I) && Input.GetKey(KeyCode.N))
+        if(IJ && Input.GetKey(KeyCode.J) && Input.GetKey(KeyCode.O) && Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.H) && Input.GetKey(KeyCode.I) && Input.GetKey(KeyCode.N))
         {
+            StartCoroutine(uIManager.IJ());
+            IJ = false;
+        }
+        if(!(Input.GetKey(KeyCode.J) && Input.GetKey(KeyCode.O) && Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.H) && Input.GetKey(KeyCode.I) && Input.GetKey(KeyCode.N)))
+        {
+            IJ = true;
         }
     }
 }

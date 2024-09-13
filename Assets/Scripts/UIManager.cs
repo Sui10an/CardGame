@@ -8,7 +8,7 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] GameObject changeTurnPanel, changePhasePanel, waitStart, win, lose, youLose;
     [SerializeField] Image changeTurnPanelImage;
-    [SerializeField] Sprite start, yourTurn, enemyTurn, battlePhaseButton, battlePhase;
+    [SerializeField] Sprite start, yourTurn, enemyTurn, battlePhaseButton, battlePhase, joshin;
     public bool isStart;
 
     void Awake()
@@ -23,16 +23,16 @@ public class UIManager : MonoBehaviour
         {
             if (GameManager.instance.isNotBattlePhase == false)
             {
-                yield return StartCoroutine(ShowPanel(battlePhase, 3f));
+                yield return StartCoroutine(ShowPanel(battlePhase, 3f, 1.5f));
             }
             else
             {
-                yield return StartCoroutine(ShowPanel(yourTurn, 3f));
+                yield return StartCoroutine(ShowPanel(yourTurn, 3f, 1.5f));
             }
         }
         else
         {
-            yield return StartCoroutine(ShowPanel(enemyTurn, 3f));
+            yield return StartCoroutine(ShowPanel(enemyTurn, 3f, 1.5f));
         }
     }
 
@@ -46,12 +46,22 @@ public class UIManager : MonoBehaviour
         changePhasePanel.SetActive(false);
     }
 
-    public IEnumerator ShowPanel(Sprite sprite, float speed)
+    public IEnumerator ShowPanel(Sprite sprite, float speed, float time)
     {
         changeTurnPanelImage.sprite = sprite;
-        changeTurnPanelImage.color = new Color(1f, 1f, 1f, 1f);
+        changeTurnPanelImage.color = new Color(0, 0, 0, 1f);
         changeTurnPanel.SetActive(true);
-        yield return new WaitForSeconds(1.5f);
+        while(changeTurnPanelImage.color.r < 1f)
+        {
+            Color color = changeTurnPanelImage.color;
+            color.r += speed/255f;
+            color.g += speed/255f;
+            color.b += speed/255f;
+            //color.a += speed/255f;
+            changeTurnPanelImage.color = color;
+            yield return null;
+        }
+        yield return new WaitForSeconds(time);
         while(changeTurnPanelImage.color.r > 0)
         {
             Color color = changeTurnPanelImage.color;
@@ -68,7 +78,7 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator Title()
     {
-        yield return ShowPanel(start, 2f);
+        yield return ShowPanel(start, 2f, 2f);
     }
 
     public IEnumerator StartBeginMatch()
@@ -115,5 +125,10 @@ public class UIManager : MonoBehaviour
     {
         changeTurnPanel.SetActive(false);
         changePhasePanel.SetActive(false);
+    }
+
+    public IEnumerator IJ()
+    {
+        yield return ShowPanel(joshin, 7f, 0);
     }
 }
