@@ -23,16 +23,16 @@ public class UIManager : MonoBehaviour
         {
             if (GameManager.instance.isNotBattlePhase == false)
             {
-                yield return StartCoroutine(ShowPanel(battlePhase, 3f, 1.5f));
+                yield return StartCoroutine(ShowPanel(battlePhase, 15f, 1.5f));
             }
             else
             {
-                yield return StartCoroutine(ShowPanel(yourTurn, 3f, 1.5f));
+                yield return StartCoroutine(ShowPanel(yourTurn, 15f, 1.5f));
             }
         }
         else
         {
-            yield return StartCoroutine(ShowPanel(enemyTurn, 3f, 1.5f));
+            yield return StartCoroutine(ShowPanel(enemyTurn, 15f, 1.5f));
         }
     }
 
@@ -59,7 +59,7 @@ public class UIManager : MonoBehaviour
             color.b += speed/255f;
             //color.a += speed/255f;
             changeTurnPanelImage.color = color;
-            yield return null;
+            yield return new WaitForSeconds(1f/60f);
         }
         yield return new WaitForSeconds(time);
         while(changeTurnPanelImage.color.r > 0)
@@ -70,7 +70,7 @@ public class UIManager : MonoBehaviour
             color.b -= speed/255f;
             //color.a -= speed/255f;
             changeTurnPanelImage.color = color;
-            yield return null;
+            yield return new WaitForSeconds(1f/60f);
         }
         changeTurnPanel.SetActive(false);
         changeTurnPanelImage.color = new Color(1f, 1f, 1f, 1f);
@@ -78,7 +78,7 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator Title()
     {
-        yield return ShowPanel(start, 2f, 2f);
+        yield return ShowPanel(start, 10f, 2f);
     }
 
     public IEnumerator StartBeginMatch()

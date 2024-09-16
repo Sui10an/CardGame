@@ -1,4 +1,3 @@
-// BAKAMANUKE
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -1119,6 +1118,10 @@ public class GameManager : MonoBehaviour
         if(!(Input.GetKey(KeyCode.J) && Input.GetKey(KeyCode.O) && Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.H) && Input.GetKey(KeyCode.I) && Input.GetKey(KeyCode.N)))
         {
             IJ = true;
+        }
+        if(Input.GetKey(KeyCode.Escape) && Input.GetKeyDown(KeyCode.Return))
+        {
+            Application.Quit();
         }
     }
 }
